@@ -1,0 +1,24 @@
+login.html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+</head>
+<body>
+
+	<form action="../controller/login_validation.php" method="post">
+		<div>
+			<input type="text" name="email" placeholder="Email" required>
+		</div>
+		<div>
+			<input type="password" name="password" placeholder="Password" required>
+		</div>
+		<input type="submit" name="submit" value="Login">
+		<div>
+			<a href="#"><small>Forgot password?</small></a>
+		</div>
+	</form>
+
+	<p>New to ares?</p><a href="signup.html"> Sign up </a><p>right now!</p>
+</body>
+</html>
