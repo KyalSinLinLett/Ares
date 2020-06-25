@@ -1,4 +1,3 @@
-login.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +5,15 @@ login.html
 </head>
 <body>
 
+	<?php
+
+		session_start();
+		if (isset($_SESSION['id'])){
+			header('Location: feed.php');
+			exit();
+		}
+
+	?>
 	<form action="../controller/login_validation.php" method="post">
 		<div>
 			<input type="text" name="email" placeholder="Email" required>
@@ -19,6 +27,6 @@ login.html
 		</div>
 	</form>
 
-	<p>New to ares?</p><a href="signup.html"> Sign up </a><p>right now!</p>
+	<p>New to ares?</p><a href="signup.php"> Sign up </a><p>right now!</p>
 </body>
 </html>

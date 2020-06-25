@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Delete account</title>
+</head>
+<body>
+
+	<p>We are sad to see you go</p>
+
+	<form action="../controller/api/deleteUser.php" method="post">
+		<div>
+			<input type="email" name="email" placeholder="Confirm your email" required>
+		</div>
+		<div>
+			<input type="password" name="password" placeholder="Confirm your password" required>
+		</div>
+		<div>
+			<input type="password" name="cpassword" placeholder="Confirm your password again" required>
+		</div>		
+		<div>
+			<input type="submit" name="submit" value="YES, I AM PERMANENTLY DELETING MY ACCOUNT.">
+		</div>
+	</form>
+
+</body>
+</html>

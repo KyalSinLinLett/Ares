@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 	class User{
 		//Db related 
@@ -80,7 +80,7 @@
 		// function to get a user (R)
 		public function get_user(){
 			//create query
-			$query = "SELECT * from ".$this->table.' WHERE id = :id;';
+			$query = "SELECT name, email, birthday, profession, biography from ".$this->table.' WHERE id = :id;';
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -93,15 +93,7 @@
 			//set the user info into $row
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			//set properties
-			$this->name = $row['name'];
-			$this->password = $row['password'];
-			$this->email = $row['email'];
-			$this->birthday = $row['birthday'];
-			$this->profession = $row['profession'];
-			$this->biography = $row['biography'];
-			$this->created_at = $row['created_at'];
-
+			return $row;
 		}
 
 		// functioon to update user details (U)
@@ -112,8 +104,6 @@
 					".$this->table."
 				SET 
 					name = :name,
-					password = :password,
-					email = :email,
 					birthday = :birthday,
 					profession = :profession,
 					biography = :biography
@@ -123,16 +113,11 @@
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
 
-			//clean data
-			$this->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
-
 			//bind id
 			$stmt->bindParam(":id", $this->id);
 
 			//bind data
 			$stmt->bindParam(":name", $this->name);
-			$stmt->bindParam(":password", $this->password);
-			$stmt->bindParam(":email", $this->email);
 			$stmt->bindParam(":birthday", $this->birthday);
 			$stmt->bindParam(":profession", $this->profession);
 			$stmt->bindParam(":biography", $this->biography);
@@ -148,32 +133,32 @@
 		}
 
 		//method to delete user(D)
-		public function delete_user(){
+		public function delete_account(){
 			//create query
-			$query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+			$query = "DELETE FROM ".$this->table." WHERE id = :id and email = :email and password = :password;";
 
-			//prepare statement
+			//create stmt
 			$stmt = $this->conn->prepare($query);
 
-			//clean data
-			$this->id = htmlspecialchars(strip_tags($this->id));
-
-			//bind data
+			//bind id and other params
 			$stmt->bindParam(':id', $this->id);
+			$stmt->bindParam(':email', $this->email);
+			$stmt->bindParam(':password', $this->password);
 
-			//execute query
-			if($stmt->execute()){
+			//execute statement
+			if ($stmt->execute()){
 				return true;
 			}
-			//print error message
+
 			printf("Error: %s\n", $stmt->error);
 			return false;
-
 		}
+
+		
 
 		public function user_validation(){
 			//create query
-			$query = "SELECT email, password from ".$this->table.' WHERE email = :email;';
+			$query = "SELECT id, name, email, password, birthday, profession, biography from ".$this->table.' WHERE email = :email;';
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -190,6 +175,51 @@
 			return $row;
 		}
 
+		public function get_hashed_password(){
+			//create query
+			$query = "SELECT password from ".$this->table." WHERE id = :id;";
+
+			//prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			//bind id
+			$stmt->bindParam(':id', $this->id);
+
+			//execute statement
+			$stmt->execute();
+
+			//set the result set to row and return it
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row;
+		}
+
+		public function update_password(){
+			//create query
+			$query = "
+				UPDATE  
+					".$this->table."
+				SET 
+					password = :password
+				WHERE
+					id=:id";
+
+			//create stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind id
+			$stmt->bindParam(':password', $this->password);
+			$stmt->bindParam(':id', $this->id);
+
+			if ($stmt->execute()){
+				return true;
+			} 
+
+			printf("Error: %s\n", $stmt->error);
+			return false;
+		}
+
+		
 
 	}
 

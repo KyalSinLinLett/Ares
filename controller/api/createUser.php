@@ -42,10 +42,10 @@
 
 		if ($user->create_user()){
 			echo "User Created";
-			header("location: ../../views/feed.html");
+			header("location: ../../views/profile.php");
 		} else {
 			echo "Failed to create user";
-			echo "<a href='../../views/signup.html'>Try again</a>";
+			echo "<a href='../../views/signup.php'>Try again</a>";
 		}
 	}
 ?>

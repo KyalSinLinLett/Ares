@@ -1,10 +1,12 @@
 <?php
 
-	header('Access-Control-Allow-Origin: *');
-	header('Content-Type: application/json');
+	session_start();
 
-	include_once '../../dbconnector/Database.php';
-	include_once '../../models/User.php';
+	header('Access-Control-Allow-Origin: *');
+	//header('Content-Type: application/json');
+
+	include_once '../dbconnector/Database.php';
+	include_once '../models/User.php';
 
 	//Instantiate DB
 	$database = new Database();
@@ -14,22 +16,17 @@
 	$user = new User($db);
 
 	//get user id
-	$user->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
+	$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
 
 	//perform a get user query
-	$user->get_user();
+	$user = $user->get_user();
 
-	//create array for user data
-	$user_info_array = array(
-		'id' => $user->id,
-		'name' => $user->name,
-		'email' => $user->email,
-		'birthday' => $user->birthday,
-		'profession' => $user->profession,
-		'biography' => $user->biography,
-		'created_at' => $user->created_at
-	);
-
-	print_r(json_encode($user_info_array));
+	//assign values
+	$name = $user['name'];
+	$email = $user['email'];
+	$birthday = $user['birthday'];
+	$profession = $user['profession'];
+	$biography = $user['biography'];
+	
 
 ?>

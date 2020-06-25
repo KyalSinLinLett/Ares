@@ -1,7 +1,9 @@
 <?php
 
+	session_start();
+
 	header('Allow-Access-Control-Origin: *');
-	header('Content-Type: application/json');
+	//header('Content-Type: application/json');
 	header('Allow-Access-Control-Methods: PUT');
 	header('Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Content-Type, Authorization, X-Requested-With');
 
@@ -15,24 +17,24 @@
 	// Instantiate a user object
 	$user = new User($db);
 
-	//get raw data
-	$data = json_decode(file_get_contents("php://input"));
+	if (isset($_POST['submit'])){
+		//get user id
+		$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
 
-	//get user id
-	$user->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : die();
+		//updated details set to the user attributes
+		$user->name = $_POST['name'];
+		$user->birthday = $_POST['birthday'];
+		$user->profession = $_POST['profession'];
+		$user->biography = $_POST['bio'];
 
-	//updated details set to the user attributes
-	$user->name = $data->name;
-	$user->email = $data->email;
-	$user->birthday = $data->birthday;
-	$user->profession = $data->profession;
-	$user->biography = $data->biography;
-
-	if ($user->delete_user()){
-		echo json_encode(array("message"=>"user updated"));
-	} else {
-		echo json_encode(array("message"=>"user not updated"));
+		if ($user->update_user()){
+			header('Location: ../../views/profile.php');
+		} else {
+			echo "Update failed. <a href='../../profile.php'> Try again </a>";
+		}	
 	}
+
+	
 	
 
 ?>
