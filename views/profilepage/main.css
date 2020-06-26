@@ -1,0 +1,66 @@
+html, body {
+  background-color: #efefef;
+}
+
+.profile-card {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+  max-width: 80%;
+  max-height: 60%;
+  margin: auto;
+  text-align: center;
+  border-radius: 3rem;
+  margin-top: 30px;
+  padding: 35px;
+
+}
+
+img {
+  border-radius: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  width: 300px;
+  height: 300px;
+}
+
+h1 {
+  text-shadow: .5px .5px rgba(0, 0, 0, 0.5);
+  padding-left: 25px;
+  text-align: left;
+  font-size: 55px;
+  color: #51af9a;
+  font-family: monospace;
+}
+
+.title {
+  color: gray;
+  text-align: left;
+  font-size: 35px;
+  font-style: italic;
+}
+
+p {
+  padding-left: 25px;
+  text-align: left;
+  font-size: 23px;
+  font-family: monospace; 
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.btn {
+  background-color: #008CBA;
+  font-size: 25px;
+  border-radius: 8px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: none;
+}
+
+#information{
+  padding-bottom: 50px;
+}

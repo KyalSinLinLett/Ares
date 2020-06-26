@@ -1,5 +1,7 @@
 <?php  
 
+	session_start();
+
 	header('Access-Control-Allow-Origin: *');
 	//header('Content-Type: application/json');
 	header('Access-Control-Allow-Methods: PUT');
@@ -17,35 +19,44 @@
 
 	if (isset($_POST['submit'])){
 
-		$unhashed_password = $_POST['password'];
-		$hashed_password = password_hash($unhashed_password, PASSWORD_DEFAULT);
+		$pwd_f1 = $_POST['password'];
+		$pwd_f2 = $_POST['cpassword'];
 
-		$raw_data = array(
-			'name' => $_POST['name'],
-			'password' => $hashed_password,
-			'email' => $_POST['email'],
-			'birthday' => $_POST['birthday'],
-			'profession' => $_POST['profession'],
-			'biography' => $_POST['bio']
-		);
+		if (strcmp($pwd_f1, $pwd_f2) == 0){
+			$unhashed_password = $_POST['password'];
+			$hashed_password = password_hash($unhashed_password, PASSWORD_DEFAULT);
 
-		$data = json_encode($raw_data);
-		$data = json_decode($data);
+			$raw_data = array(
+				'name' => $_POST['name'],
+				'password' => $hashed_password,
+				'email' => $_POST['email'],
+				'birthday' => $_POST['birthday'],
+				'profession' => $_POST['profession'],
+				'biography' => $_POST['bio']
+			);
 
-		//bind data into the user object
-		$user->name = $data->name;
-		$user->password = $data->password;
-		$user->email = $data->email;
-		$user->birthday = $data->birthday;
-		$user->profession = $data->profession;
-		$user->biography = $data->biography;
+			$data = json_encode($raw_data);
+			$data = json_decode($data);
 
-		if ($user->create_user()){
-			echo "User Created";
-			header("location: ../../views/profile.php");
+			//bind data into the user object
+			$user->name = $data->name;
+			$user->password = $data->password;
+			$user->email = $data->email;
+			$user->birthday = $data->birthday;
+			$user->profession = $data->profession;
+			$user->biography = $data->biography;
+
+			if ($user->create_user()){
+				echo "User Created";
+				header("location: ../../views/login.php");
+			} else {
+				$message = "Failed to create user";
+				header("Location: ../../views/signup.php?message=$message");
+			}
 		} else {
-			echo "Failed to create user";
-			echo "<a href='../../views/signup.php'>Try again</a>";
+			$message = "Passwords do not match!";
+			header("Location: ../../views/signup.php?message=$message");
 		}
+		
 	}
 ?>
