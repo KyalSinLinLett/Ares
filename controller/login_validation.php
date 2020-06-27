@@ -1,5 +1,7 @@
 <?php
 
+	session_start();
+
 	header('Access-Control-Allow-Origin: *');
 	//header('Content-Type: application/json');
 
@@ -32,8 +34,6 @@
 			$email_from_db = $result['email'];
 			$pwd_from_db = $result['password'];
 
-			session_start();
-
 			//values passed along to session in order to keep state.
 			$_SESSION['id'] = $result['id'];
 			$_SESSION['name'] = $result['name'];
@@ -46,10 +46,16 @@
 
 			//the second one verifies the password from the form and the hashed password we have retrieved from the database. Since it is hashed, there is no way of even the admins knowing the user's passwords because its all gibberish.
 
-			if ((strcmp($email_from_db, $user->email) == 0) and (password_verify($_POST['password'], $pwd_from_db))){
-					header("location: ../views/profile.php");
+			if (strcmp($email_from_db, $user->email) == 0){
+				if (password_verify($_POST['password'], $pwd_from_db)){
+					header("location: ../views/profile.php");	
+				} else {
+					echo "<p>Invalid email, password or user doesn't exist. Try again!</p>";
+					session_destroy();
+				}
 			} else {
 				echo "<p>Invalid email, password or user doesn't exist. Try again!</p>";
+				session_destroy();
 			}		
 		} else {
 			echo "<p>Invalid email, password or user doesn't exist. Try again!</p>";

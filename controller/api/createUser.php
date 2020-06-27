@@ -50,7 +50,7 @@
 				echo "User Created";
 				header("location: ../../views/login.php");
 			} else {
-				$message = "Failed to create user";
+				$message = "Failed to create user. Email in use.";
 				header("Location: ../../views/signup.php?message=$message");
 			}
 		} else {

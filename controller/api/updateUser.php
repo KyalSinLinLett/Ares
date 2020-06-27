@@ -32,9 +32,6 @@
 		} else {
 			echo "Update failed. <a href='../../profile.php'> Try again </a>";
 		}	
-	}
-
-	
-	
+	}	
 
 ?>

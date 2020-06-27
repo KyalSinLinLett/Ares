@@ -1,38 +1,84 @@
-<!DOCTYPE html>
-<html>
-<head>
+	<?php
+	
+	session_start();
+	if (!isset($_SESSION['id'])){
+		exit();
+	}
+
+	include("UIUX/snippets/toplinks.html");
+
+	?>
 	<title>Edit profile</title>
-</head>
-<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);   border-radius: 3rem;"class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+				<form action="../controller/api/updateUser.php" method="post" class="login100-form validate-form flex-sb flex-w">
+					<?php
+						$name = $_REQUEST['name'];
+						$birthday = $_REQUEST['birthday'];
+						$profession = $_REQUEST['profession'];
+						$biography = $_REQUEST['biography'];
+					?>
+					<span class="login100-form-title p-b-32">
+						Edit profile &nbsp&nbsp&nbsp&nbsp
+						<a href="../index.php"><b style="font-style: italic;">Cancel</b></a>
+					</span>
 
-	<form action="../controller/api/updateUser.php" method="post">
 
-		<?php
-			$name = $_REQUEST['name'];
-			$birthday = $_REQUEST['birthday'];
-			$profession = $_REQUEST['profession'];
-			$biography = $_REQUEST['biography'];
-		?>
+					<span class="txt1 p-b-11">
+						Name
+					</span>
+					<div class="wrap-input100 validate-input m-b-12" data-validate = "Name is required">
+						<input class="input100" type="text" name="name" value="<?php echo $name; ?>">
+						<span class="focus-input100"></span>
+					</div>
 
-		<div>
-			<input type="text" name="name" value="<?php echo $name; ?>" 
-			placeholder="Name" required>
+					<span class="txt1 p-b-11">
+						Birthday
+					</span>
+					<div class="wrap-input100 validate-input m-b-12" data-validate = "Birthday is required">
+						<input class="input100" type="date" name="birthday" value="<?php echo $birthday; ?>">
+						<span class="focus-input100"></span>
+					</div>
+
+					<span class="txt1 p-b-11">
+						Profession
+					</span>
+					<div class="wrap-input100 validate-input m-b-12" data-validate = "Profession is required">
+						<input class="input100" type="text" name="profession" value="<?php echo $profession;?>" placeholder="i.e. Student">
+						<span class="focus-input100"></span>
+					</div>
+
+					<span class="txt1 p-b-11">
+						Add bio
+					</span>
+					<div class="wrap-input100 validate-input m-b-23" data-validate = "Bio is required">
+						<input class="input100" type="text" name="bio" value="<?php echo $biography;?>" placeholder="A sentence describing yourself.">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" name="submit">
+							Update
+						</button>
+					</div>
+				</form>
+
+				<br>
+				<div class="flex-sb-m w-full p-b-48">
+					<div>
+						<a href="changepasswordpage.php"><b style="font-style: italic;">Change password?</b></a>
+						<a href="deleteaccount.php"><b style="font-style: italic;">Delete account?</b></a>
+					</div>
+					<div>
+						
+					</div>
+				</div>
+
+			</div>
 		</div>
-		<div>
-			<input type="date" name="birthday" placeholder="YYYY-MM-DD" value="<?php echo $birthday; ?>"required>
-		<div>
-			<input type="text" name="profession" placeholder="Profession" value="<?php echo $profession; ?>" required>
-		</div>
-		<div>
-			<input type="text" name="bio" placeholder="Tell us a little about yourself." value="<?php echo $biography; ?>" required>
-		</div>
-		<div>
-			<input type="submit" name="submit" value="Update">
-		</div>
-	</form>
+	</div>
 
-	<a href="changepasswordpage.html"> Change password </a>
-	<a href="deleteaccount.html"> Delete account? </a>
-
-</body>
-</html>
+	<?php 
+	include('UIUX/snippets/btmlinks.html');
+	?>

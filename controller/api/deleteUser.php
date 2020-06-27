@@ -47,9 +47,8 @@
 
 					if ($user->delete_account()){
 						echo "Account is deleted!";
-						echo "Want to create a new one?
-							<a href='../../views/signup.php'>Sign Up!</a>
-							";
+						session_destroy();
+						header("location: ../../views/signup.php");
 					} else {
 						echo "Account cannot be deleted.
 						<a href='../../views/deleteaccount.php'> Try again..</a>";

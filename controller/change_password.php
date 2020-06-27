@@ -44,12 +44,16 @@
 
 				if ($user->update_password()){
 					echo "Password updated.";
-					echo "<a href='../views/profile.php'>Go back to profile</a>";
+					include('logout.php');
 				} else {
 					echo "Please try again";
 				}
+			} else {
+				echo "Password incorrect";
 			}
 
+		} else {
+			echo "<p>Passwords dont match! Try again!</p>";
 		}
 
 

@@ -13,6 +13,15 @@
 		if (!isset($_SESSION['id'])){
 
 		?>
+
+		<button class="btn" type="button">
+			<a href='views/login.php'>Login here</a><br>
+		</button>
+
+		<button class="btn" type="button">
+			<a href='views/signup.php'>Sign Up</a>
+		</button>	
+
 			<div class="welcome-card">
 				<div>
 					<p class="welcome">Welcome to ARES.</p>
@@ -21,35 +30,22 @@
 				<p class="site-information">Ares is a social network.</p>
 			</div>
 
-			<div class="info-card">
-					<button class="btn" type="button">
-						<a href='views/login.php'>Login here</a><br>
-					</button>
-
-					<button class="btn" type="button">
-						<a href='views/signup.php'>Sign Up</a>
-					</button>			
-			</div>
-
 		<?php
 		} else {
 
 		?>
+			<button class="btn" type="button">
+				<a href='views/profile.php'>View your profile</a>
+			</button>
 
-			<div>
-				<button class="btn" type="button">
-					<a href='views/profile.php'>View your profile</a>
-				</button>
-
-				<button class="btn" type="button">
-					<a href='controller/logout.php'>Log out</a>		
-				</button>				
-			</div>
+			<button class="btn" type="button">
+				<a href='controller/logout.php'>Log out</a>		
+			</button>				
 
 			<div class="welcome-card">
 				<div>
 					<p class="welcome">Welcome to your feed, <?php
-						echo $_GET['name']; ?></p>
+						echo $_SESSION['name']; ?></p>
 				</div>
 				<div>
 					<p class="site-information">Wow, such empty.</p>
