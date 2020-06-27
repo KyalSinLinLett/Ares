@@ -28,5 +28,4 @@
 	$profession = $user['profession'];
 	$biography = $user['biography'];
 	
-
 ?>

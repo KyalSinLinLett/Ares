@@ -10,9 +10,10 @@ include("UIUX/snippets/toplinks.html");
 
 ?>
 
+<title>Sign Up</title>
 <div class="limiter">
 	<div class="container-login100">
-		<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+		<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);   border-radius: 3rem;"class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 			<form action="../controller/api/createUser.php" method="post" class="login100-form validate-form flex-sb flex-w">
 				<?php
 				if (isset($_GET['message'])){

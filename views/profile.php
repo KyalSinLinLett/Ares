@@ -5,11 +5,16 @@
 	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
 </head>
 <body>
+		<?php
+			include_once '../controller/api/getUser.php';
+		?>
+
 		<div>
+			<button class="homebtn" type="button">
+				<a href="../index.php?name=<?php echo $name; ?>">Go to feed</a>
+			</button>
 			<div class="profile-card">
-				<?php
-					include_once '../controller/api/getUser.php';
-				?>
+
 
 				<img src="https://cdn5.vectorstock.com/i/1000x1000/07/39/man-avatar-profile-view-vector-22890739.jpg">
 
@@ -31,9 +36,6 @@
 								&biography=<?php echo $biography;?>">
 								Edit profile
 						</a>
-					</button>
-					<button class="btn" type="button">
-						<a href="../index.php">Go to feed</a>
 					</button>
 				</div>
 			</div>

@@ -1,7 +1,5 @@
 <?php
 
-	session_start();
-
 	header('Access-Control-Allow-Origin: *');
 	//header('Content-Type: application/json');
 
@@ -33,6 +31,8 @@
 
 			$email_from_db = $result['email'];
 			$pwd_from_db = $result['password'];
+
+			session_start();
 
 			//values passed along to session in order to keep state.
 			$_SESSION['id'] = $result['id'];
