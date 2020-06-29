@@ -103,7 +103,7 @@
 				UPDATE  
 					".$this->table."
 				SET 
-					name = :npame,
+					name = :name,
 					birthday = :birthday,
 					profession = :profession,
 					biography = :biography

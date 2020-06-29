@@ -28,7 +28,14 @@
 		$user->biography = $_POST['bio'];
 
 		if ($user->update_user()){
+				
+			$_SESSION['name'] = $_POST['name'];
+			$_SESSION['email'] = $_POST['email'];
+			$_SESSION['profession'] = $_POST['profession'];
+			$_SESSION['biography'] = $_POST['biography'];
+
 			header('Location: ../../views/profile.php');
+
 		} else {
 			echo "Update failed. <a href='../../profile.php'> Try again </a>";
 		}	
