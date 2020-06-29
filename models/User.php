@@ -96,14 +96,14 @@
 			return $row;
 		}
 
-		// functioon to update user details (U)
+		// function to update user details (U)
 		public function update_user(){
 			//create query
 			$query = "
 				UPDATE  
 					".$this->table."
 				SET 
-					name = :name,
+					name = :npame,
 					birthday = :birthday,
 					profession = :profession,
 					biography = :biography
