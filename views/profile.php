@@ -16,8 +16,8 @@
 			<div class="profile-card">
 
 
-				<img src="https://cdn5.vectorstock.com/i/1000x1000/07/39/man-avatar-profile-view-vector-22890739.jpg">
-
+				<!-- <img src="https://cdn5.vectorstock.com/i/1000x1000/07/39/man-avatar-profile-view-vector-22890739.jpg">
+ -->
 				<h1><?php echo $name; ?></h1>
 				<p class='title'><?php echo $profession; ?></p>
 				<div id="information">
@@ -40,5 +40,63 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Create post -->
+		<div class="card">
+			<p class="createpostinfo">Share something</p>
+			<form action="../controller/postApi/createPost.php" method="POST">
+				<input type="text" name="title" placeholder="Title">
+				<input type="textares" name="content" placeholder="Share your thoughts">
+				<input type="submit" name="submit" value="Create">
+			</form>
+		</div>
+
+
+		<!-- Show posts -->
+		<?php
+
+			include_once "../controller/postApi/getAllPosts.php";
+
+			$num_rows = $result->rowCount();
+
+			if ($num_rows > 0){
+
+				//post array
+				$post_array = array();
+				$post_array['data'] = array();
+
+				while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
+					extract($rs);
+
+					$post_data = array(
+						"post_id" => $rs['post_id'],
+						"title" => $rs['title'],
+						"content" => $rs['content'],
+						"posted_at" => $rs['posted_at']
+					);
+			?>
+				<div class="card">
+					<p><b><?php print_r($post_data['title']);?></b></p>
+					<p><?php print_r($post_data['content']);?></p>
+					<p><?php print_r($post_data['posted_at']);?></p>
+					<p style="font-style: italic;">Author: <?php echo $_SESSION['name'];?></p>
+
+					<button class="btn" type="button">
+						<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&content=<?php print_r($post_data['content']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
+					</button>
+					<button class="btn" type="button">
+						<a href="deletePostPage.php">Delete</a>
+					</button>
+				</div>
+			
+			<?php
+
+				}
+
+			} 
+
+			?>
+
+
 </body>
 </html>

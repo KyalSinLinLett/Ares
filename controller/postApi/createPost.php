@@ -16,23 +16,27 @@
 	//instantiate post object
 	$post = new Post($db);
 
-	//get json input
-	$data = json_decode(file_get_contents("php://input"));
+	// //get json input
+	// $data = json_decode(file_get_contents("php://input"));
 
-	//set data to post
-	$post->title = $data->title;
-	$post->content = $data->content;
-	$post->user_id = $data->user_id;
+	// //set data to post
+	// $post->title = $data->title;
+	// $post->content = $data->content;
+	// $post->user_id = $data->user_id;
 
-	//create post
-	if ($post->create_post()){
-		echo json_encode(array("Message" => "Post is created"));
-	} else {
-		echo "post not created";
+	if (isset($_POST['submit'])){
+
+		$post->user_id = $_SESSION['id'];
+		$post->title = $_POST['title'];
+		$post->content = $_POST['content'];
+
+		//create post
+		if ($post->create_post()){
+			header('location: ../../views/profile.php');
+		} else {
+			echo "post not created";
+		}
+
 	}
 
-	
-
-
- 
 ?>

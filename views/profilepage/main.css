@@ -94,6 +94,15 @@ h1 {
   max-height: 50%;*/
 }
 
+.createpostinfo {
+  padding-left: 25px;
+  text-align: left;
+  font-size: 23px;
+  color: gray;
+  font-style: italic;
+  font-family: monospace; 
+}
+
 p {
   padding-left: 25px;
   text-align: left;

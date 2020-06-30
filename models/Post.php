@@ -128,6 +128,24 @@
 			//print error message
 			printf("Error: %s\n", $stmt->error);
 			return false;
+		}
+
+		//function to get all posts
+		public function get_all_posts(){
+			//query
+			$query = "SELECT * FROM ".$this->table." WHERE user_id = :user_id ORDER BY ".$this->table.".posted_at DESC";
+
+			//create stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':user_id', $this->user_id);
+
+			//execute stmt
+			$stmt->execute();
+
+			return $stmt;
+
 
 		}
 
