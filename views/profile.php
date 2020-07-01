@@ -61,10 +61,6 @@
 
 			if ($num_rows > 0){
 
-				//post array
-				$post_array = array();
-				$post_array['data'] = array();
-
 				while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
 					extract($rs);
 
@@ -74,6 +70,7 @@
 						"content" => $rs['content'],
 						"posted_at" => $rs['posted_at']
 					);
+
 			?>
 				<div class="card">
 					<p><b><?php print_r($post_data['title']);?></b></p>
@@ -84,8 +81,16 @@
 					<button class="btn" type="button">
 						<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&content=<?php print_r($post_data['content']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
 					</button>
-					<button class="btn" type="button">
-						<a href="deletePostPage.php">Delete</a>
+					<button class="btn" onclick="confirm()" type="button">
+						<script type="text/javascript">
+							
+							function confirm(){
+								window.alert('Are you sure you want to delete?');
+							}
+
+						</script>
+
+						<a href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
 					</button>
 				</div>
 			

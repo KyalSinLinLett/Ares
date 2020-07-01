@@ -21,9 +21,9 @@
 
 	//executing
 	if ($post->delete_post()){
-		print_r(json_encode(array("Message"=>"Post is deleted")));
+		header('location: ../../views/profile.php');
 	} else {
-		print_r(json_encode(array("Message"=>"Post not deleted")));	
+		echo "post not deleted";	
 	}
 
 

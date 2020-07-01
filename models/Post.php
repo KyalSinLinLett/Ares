@@ -60,8 +60,8 @@
 
 			//binding params
 			$stmt->bindParam(':title', $this->title);
-			$stmt->bindParam('content', $this->content);
-			$stmt->bindParam('post_id', $this->post_id);
+			$stmt->bindParam(':content', $this->content);
+			$stmt->bindParam(':post_id', $this->post_id);
 
 			if ($stmt->execute()){
 				return true;
@@ -145,8 +145,33 @@
 			$stmt->execute();
 
 			return $stmt;
+		}
 
+		//function to get all posts
+		public function get_all_posts_NF(){
+			$USERTABLE = "User";
+			//query
+			$query = "
 
+			SELECT ".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name 
+
+			FROM ".$this->table." 
+
+			LEFT JOIN ".$USERTABLE."
+
+			ON ".$this->table.".user_id = ".$USERTABLE.".id
+
+			ORDER BY ".$this->table.".posted_at DESC
+
+			LIMIT 25";
+
+			//create stmt
+			$stmt = $this->conn->prepare($query);
+
+			//execute stmt
+			$stmt->execute();
+
+			return $stmt;
 		}
 
 

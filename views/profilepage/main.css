@@ -122,6 +122,13 @@ a {
   color: white;
 }
 
+.profilelinks {
+
+  text-decoration: none;
+  color: #008CBA;
+
+}
+
 .btn {
   background-color: #008CBA;
   font-size: 25px;
