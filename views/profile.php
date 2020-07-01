@@ -16,8 +16,8 @@
 			<div class="profile-card">
 
 
-				<!-- <img src="https://cdn5.vectorstock.com/i/1000x1000/07/39/man-avatar-profile-view-vector-22890739.jpg">
- -->
+				<img src="https://i.cubeupload.com/8Hf7dq.png">
+
 				<h1><?php echo $name; ?></h1>
 				<p class='title'><?php echo $profession; ?></p>
 				<div id="information">
@@ -81,15 +81,7 @@
 					<button class="btn" type="button">
 						<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&content=<?php print_r($post_data['content']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
 					</button>
-					<button class="btn" onclick="confirm()" type="button">
-						<script type="text/javascript">
-							
-							function confirm(){
-								window.alert('Are you sure you want to delete?');
-							}
-
-						</script>
-
+					<button class="btn" type="button">
 						<a href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
 					</button>
 				</div>

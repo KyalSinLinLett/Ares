@@ -140,7 +140,7 @@
 
 			//bind param
 			$stmt->bindParam(':user_id', $this->user_id);
-
+			
 			//execute stmt
 			$stmt->execute();
 
@@ -153,7 +153,7 @@
 			//query
 			$query = "
 
-			SELECT ".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name 
+			SELECT ".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id 
 
 			FROM ".$this->table." 
 
@@ -173,10 +173,6 @@
 
 			return $stmt;
 		}
-
-
-
-
 
 	}
 
