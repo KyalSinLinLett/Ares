@@ -54,11 +54,11 @@
 
 				?>
 					<div class="card">
-						<p><b><?php print_r($post_data['title']);?></b></p>
+						<a class="postlinks"href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
 						<p><?php print_r($post_data['content']);?></p>
 						<p><?php print_r($post_data['posted_at']);?></p>
-
 						<p>Author: <a class="profilelinks" href="views/viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a></p>
+						
 					</div>
 				
 				<?php
@@ -113,7 +113,7 @@
 
 				?>
 					<div class="card">
-						<p><b><?php print_r($post_data['title']);?></b></p>
+						<a class="postlinks" href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
 						<p><?php print_r($post_data['content']);?></p>
 						<p><?php print_r($post_data['posted_at']);?></p>
 						 

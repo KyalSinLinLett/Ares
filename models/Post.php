@@ -83,18 +83,18 @@
 						".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$this->table.".user_id, ".$USERTABLE.".name
 					  FROM 
 					  	".$this->table."
-					  INNER JOIN 
+					  LEFT JOIN 
 					  	".$USERTABLE."
 					  ON 
 					  	".$this->table.".user_id = ".$USERTABLE.".id
 					  WHERE
-					  	".$this->table.".user_id = :user_id";
+					  	".$this->table.".post_id = :post_id";
 
 			//prepare stmt
 			$stmt = $this->conn->prepare($query);
 
-			//bind id
-			$stmt->bindParam(':user_id', $this->user_id);
+			//bind post_id
+			$stmt->bindParam(':post_id', $this->post_id);
 
 			//execute query
 			$stmt->execute();
@@ -172,7 +172,7 @@
 			$stmt->execute();
 
 			return $stmt;
-		}
+		}		
 
 	}
 

@@ -4,11 +4,11 @@
 
 	header("Access-Control-Allow-Origin: *");
 	header("Allow-Control-Allow-Methods: GET");
-	header("Content-Type: application/json");
+	//header("Content-Type: application/json");
 	header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
-	include_once "../../dbconnector/Database.php";
-	include_once "../../models/Post.php";
+	include_once "../dbconnector/Database.php";
+	include_once "../models/Post.php";
 
 	//instantiate db
 	$database = new Database();
@@ -17,35 +17,23 @@
 	//instantiate post object
 	$post = new Post($db);
 
-	//get id from json input
-	$data = json_decode(file_get_contents("php://input"));
-
-	//set the user id
-	$post->user_id = $data->user_id;
+	//set the post id
+	$post->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die();
 
 	//execute
 	if ($rs = $post->get_post()){
-		$post_data_array = array(
+		$post_data = array(
 			"post_id" => $rs['post_id'],
 			"author" => $rs['name'],
 			"title" => $rs['title'],
 			"content" => $rs['content'],
-			"posted_at" => $rs['posted_at']
-
+			"posted_at" => $rs['posted_at'],
+			"posted_by" => $rs['user_id']
 		);
 
-		$post_data_json = json_encode($post_data_array);
-
-		print_r($post_data_json);
 	} else {
-		print_r(json_encode(array("message"=> "user or post doesn't exist")));
+		echo "Unable to get post";
 	}
-		
-
-		
-
-
-
 
 
 ?>

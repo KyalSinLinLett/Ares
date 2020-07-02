@@ -63,12 +63,13 @@
 						"post_id" => $rs['post_id'],
 						"title" => $rs['title'],
 						"content" => $rs['content'],
-						"posted_at" => $rs['posted_at']
+						"posted_at" => $rs['posted_at'],
+						"user_id" => $rs['user_id']
 					);
 
 			?>
 				<div class="card">
-					<p><b><?php print_r($post_data['title']);?></b></p>
+					<a class="postlinks" href="viewPost.php?user_id=<?php print_r($post_data['user_id']);?>&post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
 					<p><?php print_r($post_data['content']);?></p>
 					<p><?php print_r($post_data['posted_at']);?></p>
 					<p style="font-style: italic;">Author: <?php echo $name;?></p>
