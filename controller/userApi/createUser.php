@@ -3,7 +3,6 @@
 	session_start();
 
 	header('Access-Control-Allow-Origin: *');
-	//header('Content-Type: application/json');
 	header('Access-Control-Allow-Methods: PUT');
 	header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
@@ -17,13 +16,18 @@
 	//Instantiate user object
 	$user = new User($db);
 
+	//when submit button is clicked
 	if (isset($_POST['submit'])){
 
+		//gets the password from pwd and confirm pwd input boxes
 		$pwd_f1 = $_POST['password'];
 		$pwd_f2 = $_POST['cpassword'];
 
+		//checks if the two is identical
 		if (strcmp($pwd_f1, $pwd_f2) == 0){
+			//sets the unhashed password
 			$unhashed_password = $_POST['password'];
+			//hashed the password
 			$hashed_password = password_hash($unhashed_password, PASSWORD_DEFAULT);
 
 			$raw_data = array(

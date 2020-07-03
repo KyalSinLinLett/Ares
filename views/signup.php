@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+
+//makes sure that the user cannot sign up again or log in once they have already logged in
 if (isset($_SESSION['id'])){
 	header('Location: ../index.php');
 	exit();
@@ -14,16 +16,21 @@ include("UIUX/snippets/toplinks.html");
 <div class="limiter">
 	<div class="container-login100">
 		<div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);   border-radius: 3rem;"class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-			<form action="../controller/api/createUser.php" method="post" class="login100-form validate-form flex-sb flex-w">
+			<form action="../controller/userApi/createUser.php" method="post" class="login100-form validate-form flex-sb flex-w">
+
+				<!-- php code for showing error message -->
 				<?php
 				if (isset($_GET['message'])){
 					echo "<small style='color: red; font-style:italic;'>".$_GET['message']."</small>";
 				}
 				?>
+
+				<!-- Sign up text -->
 				<span class="login100-form-title p-b-32">
 					Sign Up
 				</span>
 
+				<!-- Name input box -->
 				<span class="txt1 p-b-11">
 					Name
 				</span>
@@ -32,6 +39,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- Email input box -->
 				<span class="txt1 p-b-11">
 					email
 				</span>
@@ -40,6 +48,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- Password input box -->
 				<span class="txt1 p-b-11">
 					Password
 				</span>
@@ -48,6 +57,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- Confirm password input box -->
 				<span class="txt1 p-b-11">
 					Confirm password
 				</span>
@@ -56,6 +66,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- birthday input box -->
 				<span class="txt1 p-b-11">
 					Birthday
 				</span>
@@ -64,6 +75,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- profession input box -->
 				<span class="txt1 p-b-11">
 					Profession
 				</span>
@@ -72,6 +84,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- Bio input box -->
 				<span class="txt1 p-b-11">
 					Add bio
 				</span>
@@ -80,6 +93,7 @@ include("UIUX/snippets/toplinks.html");
 					<span class="focus-input100"></span>
 				</div>
 
+				<!-- signup button -->
 				<div class="container-login100-form-btn">
 					<button class="login100-form-btn" name="submit">
 						Sign Up
@@ -88,6 +102,8 @@ include("UIUX/snippets/toplinks.html");
 			</form>
 
 			<br>
+
+			<!-- Asking if user already has an account -->
 			<div class="flex-sb-m w-full p-b-48">
 				<div>
 					<p style="font-style: italic;">Already a member of Ares?<a href="login.php" class="txt3">

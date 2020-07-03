@@ -16,16 +16,6 @@
 	//instantiate post obj
 	$post = new Post($db);
 
-
-	//updating post with new information
-	//1. We need to get the new information through json
-	// $data = json_decode(file_get_contents("php://input"));
-
-	//2. set the json data to post
-	// $post->title = $data->title;
-	// $post->content = $data->content;
-	// $post->post_id = $data->post_id;
-
 	if (isset($_POST['submit'])){
 
 		$post->title = $_POST['title'];

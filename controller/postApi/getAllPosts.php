@@ -2,7 +2,6 @@
 	
 	header("Access-Control-Allow-Origin: *");
 	header("Allow-Control-Allow-Methods: GET");
-	//header("Content-Type: application/json");
 	header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
 	include_once "../dbconnector/Database.php";
@@ -21,13 +20,6 @@
 	//set the result to $rs
 	$result = $post->get_all_posts();
 
-	return $result;
-
-
-		
-
-
-
-
+	$num_rows = $result->rowCount();
 
 ?>

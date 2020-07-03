@@ -21,6 +21,7 @@
 		public function add_comment(){
 			//query 
 			$query = "INSERT INTO ".$this->table."
+
 					  SET
 					  	comment = :comment,
 					  	post_id = :post_id,
@@ -53,7 +54,15 @@
 
 			// 	 ORDER BY posted_at DESC";
 
-			$query = "SELECT * FROM ".$this->table." LEFT JOIN ".$USERTABLE." ON ".$this->table.".posted_by = ".$USERTABLE.".id WHERE ".$this->table.".post_id=:post_id ORDER BY posted_at DESC";
+			$query = "SELECT * FROM ".$this->table." 
+
+					  LEFT JOIN ".$USERTABLE." 
+
+					  ON ".$this->table.".posted_by = ".$USERTABLE.".id 
+
+					  WHERE ".$this->table.".post_id=:post_id 
+
+					  ORDER BY posted_at DESC";
 			
 			//stmt
 			$stmt = $this->conn->prepare($query);
@@ -70,7 +79,9 @@
 		//function to delete comment
 		public function delete_comment(){
 			//query 
-			$query = "DELETE FROM ".$this->table." WHERE cmt_id=:cmt_id and post_id=:post_id";
+			$query = "DELETE FROM ".$this->table." 
+
+					  WHERE cmt_id=:cmt_id and post_id=:post_id";
 
 			//stmt
 			$stmt = $this->conn->prepare($query);
@@ -92,9 +103,11 @@
 		//function to edit comment
 		public function edit_comment(){
 			//query 
-			$query = "UPDATE ".$this->table." 
+			$query = "UPDATE ".$this->table."
+
 					  SET
 					  	comment = :comment
+					  	
 					  WHERE 
 					  	cmt_id = :cmt_id";
 

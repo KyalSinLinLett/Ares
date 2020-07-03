@@ -1,9 +1,7 @@
 <?php
-
 	session_start();
 
 	header('Allow-Access-Control-Origin: *');
-	//header('Content-Type: application/json');
 	header('Allow-Access-Control-Methods: PUT');
 	header('Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Content-Type, Authorization, X-Requested-With');
 
@@ -55,13 +53,5 @@
 		} else {
 			echo "<p>Passwords dont match! Try again!</p>";
 		}
-
-
-
-
-
 	}
-
-
-	
 ?>

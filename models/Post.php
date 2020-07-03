@@ -22,6 +22,7 @@
 
 			//query 
 			$query = "INSERT INTO ".$this->table."
+
 					  SET
 					  	title = :title, 
 					  	content = :content,
@@ -49,9 +50,11 @@
 		public function edit_post(){
 			//query 
 			$query = "UPDATE ".$this->table."
+
 					SET
 						title = :title,
 						content = :content
+
 					WHERE
 					    post_id = :post_id";
 
@@ -81,12 +84,16 @@
 			//create query
 			$query = "SELECT 
 						".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$this->table.".user_id, ".$USERTABLE.".name
+
 					  FROM 
 					  	".$this->table."
+
 					  LEFT JOIN 
 					  	".$USERTABLE."
-					  ON 
+
+					  ON
 					  	".$this->table.".user_id = ".$USERTABLE.".id
+
 					  WHERE
 					  	".$this->table.".post_id = :post_id";
 
@@ -111,6 +118,7 @@
 			//create query
 			$query = "DELETE FROM 
 						".$this->table." 
+
 					  WHERE 
 					  	post_id = :post_id";
 
@@ -133,7 +141,11 @@
 		//function to get all posts
 		public function get_all_posts(){
 			//query
-			$query = "SELECT * FROM ".$this->table." WHERE user_id = :user_id ORDER BY ".$this->table.".posted_at DESC";
+			$query = "SELECT * FROM ".$this->table." 
+
+					  WHERE user_id = :user_id 
+
+					  ORDER BY ".$this->table.".posted_at DESC";
 
 			//create stmt
 			$stmt = $this->conn->prepare($query);
@@ -153,7 +165,8 @@
 			//query
 			$query = "
 
-			SELECT ".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id 
+			SELECT 
+				".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id 
 
 			FROM ".$this->table." 
 
@@ -175,7 +188,5 @@
 		}		
 
 	}
-
-
 
 ?>

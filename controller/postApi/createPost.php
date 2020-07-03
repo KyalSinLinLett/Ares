@@ -16,13 +16,6 @@
 	//instantiate post object
 	$post = new Post($db);
 
-	// //get json input
-	// $data = json_decode(file_get_contents("php://input"));
-
-	// //set data to post
-	// $post->title = $data->title;
-	// $post->content = $data->content;
-	// $post->user_id = $data->user_id;
 
 	if (isset($_POST['submit'])){
 

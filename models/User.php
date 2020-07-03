@@ -43,6 +43,7 @@
 				//create query
 				$query = "INSERT INTO 
 							".$this->table."
+
 						 SET
 						 	name = :name,
 						 	password = :password,
@@ -80,7 +81,11 @@
 		// function to get a user (R)
 		public function get_user(){
 			//create query
-			$query = "SELECT name, email, birthday, profession, biography from ".$this->table.' WHERE id = :id;';
+			$query = "SELECT name, email, birthday, profession, biography 
+
+					  FROM ".$this->table.' 
+
+					  WHERE id = :id;';
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -102,11 +107,13 @@
 			$query = "
 				UPDATE  
 					".$this->table."
+
 				SET 
 					name = :name,
 					birthday = :birthday,
 					profession = :profession,
 					biography = :biography
+
 				WHERE
 					id=:id";
 
@@ -135,7 +142,9 @@
 		//method to delete user(D)
 		public function delete_account(){
 			//create query
-			$query = "DELETE FROM ".$this->table." WHERE id = :id and email = :email and password = :password;";
+			$query = "DELETE FROM ".$this->table." 
+
+					  WHERE id = :id and email = :email and password = :password;";
 
 			//create stmt
 			$stmt = $this->conn->prepare($query);
@@ -158,7 +167,14 @@
 
 		public function user_validation(){
 			//create query
-			$query = "SELECT id, name, email, password, birthday, profession, biography from ".$this->table.' WHERE email = :email;';
+			$query = "SELECT 
+						id, name, email, password, birthday, profession, biography 
+
+					  FROM 
+					  	".$this->table.' 
+
+					  WHERE 
+					  	email = :email;';
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -177,7 +193,11 @@
 
 		public function get_hashed_password(){
 			//create query
-			$query = "SELECT password from ".$this->table." WHERE id = :id;";
+			$query = "SELECT password 
+
+					  FROM ".$this->table." 
+
+					  WHERE id = :id;";
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -199,8 +219,10 @@
 			$query = "
 				UPDATE  
 					".$this->table."
+
 				SET 
 					password = :password
+
 				WHERE
 					id=:id";
 
@@ -218,9 +240,6 @@
 			printf("Error: %s\n", $stmt->error);
 			return false;
 		}
-
-		
-
 	}
 
 ?>
