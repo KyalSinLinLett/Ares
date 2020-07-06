@@ -80,6 +80,7 @@ if ($num_rows > 0){
 
 		<p><?php print_r($post_data['content']);?></p>
 		<p><?php print_r($post_data['posted_at']);?></p>
+
 		<p style="font-style: italic;">Author: <?php echo $name;?></p>
 	</div>
 

@@ -1,5 +1,5 @@
 <?php 
-	
+
 	header("Access-Control-Allow-Origzin: *");
 	header("Access-Control-Allow-Methods: GET");
 	//header("Content-Type: application/json");

@@ -8,7 +8,15 @@
 
 <?php
 
+	ob_start();
+	session_start();
+
+?>
+
+<?php
+
 include_once "../controller/postApi/getPost.php";
+include_once "../controller/likeApi/getLikes.php";
 
 ?>
 
@@ -21,26 +29,70 @@ include_once "../controller/postApi/getPost.php";
 <p><b><?php print_r($post_data['title']);?></b></p>
 <p><?php print_r($post_data['content']);?></p>
 <p><?php print_r($post_data['posted_at']);?></p>
+<p>Likes: <?php echo $likecount; ?></p>
 
+
+<!-- Profile links based on logged in user -->
 <?php
-
 	//if the post author is the logged in user 
-	if (strcmp($_SESSION['id'], $post_data['posted_by']) == 0){
+	if (isset($_SESSION['id'])){
+		if (strcmp($_SESSION['id'], $post_data['posted_by']) == 0){
 
 ?>
 
 	<p>Author: <a class="profilelinks" href="profile.php"><?php print_r($post_data['author']);?></a></p>
 
 <?php
+		
 	} else {
 ?>
 
 	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>
 
 <?php
+		}
+	} else {
+?>
+
+	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>	
+
+<?php
 	}
 ?>
 
+<!-- likes -->
+<?php 
+	
+	//is user already logged in?
+	if (isset($_SESSION['id'])){
+
+		$id = $_SESSION['id'];
+
+		// is this post already been liked by user?
+		include_once "../controller/check_liked.php";
+		if ($condition > 0){ //means already liked
+
+		?>
+			<!-- Show unlike button -->
+			<button class="btn" type="button">
+				<a href="../controller/likeApi/unlike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Unlike</a>
+			</button>
+			
+		<?php
+		} else {
+		?>	
+			<!-- show like button -->
+			<button class="btn" type="button">
+				<a href="../controller/likeApi/addLike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Like</a>
+			</button>
+			
+		<?php
+		}	
+	}	
+
+?>
+
+<!-- show edit, delete buttons if user is logged in -->
 <?php 
 
 	if (isset($_SESSION['id'])){
@@ -144,6 +196,13 @@ if ($num_rows > 0){
 			
 		<?php
 				}
+			} else {
+		?>
+
+			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>	
+
+		<?php
+
 			}
 
 		?>
@@ -158,6 +217,9 @@ if ($num_rows > 0){
 
 ?>
 
+<?php 
+ob_flush();
+?>
 
 
 </body>

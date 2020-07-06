@@ -16,7 +16,6 @@
 	//instantiate post object
 	$post = new Post($db);
 
-
 	if (isset($_POST['submit'])){
 
 		$post->user_id = $_SESSION['id'];

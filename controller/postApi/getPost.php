@@ -1,7 +1,5 @@
 <?php 
 
-	session_start();
-
 	header("Access-Control-Allow-Origin: *");
 	header("Allow-Control-Allow-Methods: GET");
 	//header("Content-Type: application/json");

@@ -1,7 +1,5 @@
 <?php 
 
-	session_start();
-
 	header('Access-Control-Allow-Origin: *');
 	header('Access-Control-Allow-Method: POST');
 	header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');

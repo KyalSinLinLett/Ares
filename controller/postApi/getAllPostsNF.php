@@ -18,13 +18,4 @@
 	//set the result to $rs
 	$result = $post->get_all_posts_NF();
 
-	return $result;
-
-
-		
-
-
-
-
-
 ?>
