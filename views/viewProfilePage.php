@@ -9,18 +9,6 @@
 <!-- Get user information from API -->
 <?php
 	include_once '../controller/userApi/visitProfile.php';
-
-	//get user id
-	$user->id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
-
-	//perform a get user query
-	$user = $user->get_user();	
-
-	$name = $user['name'];
-	$email = $user['email'];
-	$birthday = $user['birthday'];
-	$profession = $user['profession'];
-	$biography = $user['biography'];
 ?>
 
 <!-- display the information in HTML -->

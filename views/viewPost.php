@@ -104,7 +104,7 @@ include_once "../controller/likeApi/getLikes.php";
 		<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&content=<?php print_r($post_data['content']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
 	</button>
 	<button class="btn" type="button">
-		<a href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
+		<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
 	</button>
 
 <?php

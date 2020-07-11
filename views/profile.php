@@ -104,7 +104,11 @@ if ($num_rows > 0){
 				</a>
 			</button>
 			<button class="btn" type="button">
-				<a href="../controller/postApi/deletePost.php?
+				<a 
+
+				onClick="javascript: return confirm('Please comfirm deletion');"
+
+				href="../controller/postApi/deletePost.php?
 
 					post_id=<?php print_r($post_data['post_id']); ?>">
 
