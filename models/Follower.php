@@ -22,7 +22,7 @@
 						".$this->table."
 					  SET 
 					  	user_id = :user_id,
-					  	followed_by = : followed_by";
+					  	followed_by = :followed_by";
 
 			//prepare statement
 			$stmt = $this->conn->prepare($query);
@@ -123,7 +123,7 @@
 
 			//query 
 			$query = "SELECT 
-							".$this->table.".followed_by, ".$USERTABLE.".name
+							".$this->table.".followed_by, ".$USERTABLE.".name, ".$USERTABLE.".id
 					  FROM 
 					  		".$this->table."
 					  LEFT JOIN
@@ -141,9 +141,7 @@
 
 			$stmt->execute();
 
-			$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-			return $result;
+			return $stmt;
 		}
 
 		//function to get follower list
@@ -171,9 +169,11 @@
 
 		//function to get follower list
 		public function get_following_list(){
+			
+			$USERTABLE = "User";	
 			//query 
 			$query = "SELECT 
-							".$this->table.".user_id, ".$USERTABLE.".name
+							".$this->table.".user_id, ".$USERTABLE.".name, ".$USERTABLE.".id
 					  FROM 
 					  		".$this->table."
 					  LEFT JOIN
@@ -181,20 +181,18 @@
 					  ON 
 					  		".$this->table.".user_id = ".$USERTABLE.".id
 					  WHERE 
-					  		followed_by = :followed_by";
+					  		followed_by = :user_id";
 
 			//prepare stmt
 			$stmt = $this->conn->prepare($query);
 
 			//bind param
-			$stmt->bindParam(':followed_by', $this->followed_by);
+			$stmt->bindParam(':user_id', $this->user_id);
 
 			$stmt->execute();
 
-			$result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-			return $result;
+			return $stmt;
 		}
 	}
-	
+
 ?>

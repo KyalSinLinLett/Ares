@@ -21,7 +21,7 @@
 
 	//executing
 	if ($post->delete_post()){
-		header('location: ../../views/profile.php');
+		header('location: ../../views/profile.php?user_id='.$_SESSION['id']);
 	} else {
 		echo "post not deleted";	
 	}

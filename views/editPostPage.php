@@ -22,7 +22,7 @@ include("UIUX/snippets/toplinks.html");
 				<!-- Edit post text -->
 				<span class="login100-form-title p-b-32">
 					Edit post &nbsp&nbsp&nbsp&nbsp
-					<a href="profile.php"><b style="font-style: italic;">Cancel</b></a>
+					<a href="profile.php?user_id=<?php echo $_SESSION['id']?>"><b style="font-style: italic;">Cancel</b></a>
 				</span>
 
 				<!-- Title text with input box for edited title -->

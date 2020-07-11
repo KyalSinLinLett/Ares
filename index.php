@@ -55,7 +55,7 @@
 
 	?>
 		<div class="card">
-			<a class="postlinks"href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
+			<a class="postlinks"href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><img class="smallprofilepic"src="https://i.cubeupload.com/8Hf7dq.png"><p><b><?php print_r($post_data['title']);?></b></p></a>
 			<p><?php print_r($post_data['content']);?></p>
 			<p><?php print_r($post_data['posted_at']);?></p>
 
@@ -77,7 +77,7 @@
 
 ?>
 	<button class="btn" type="button">
-		<a href='views/profile.php'>View your profile</a>
+		<a href='views/profile.php?user_id=<?php echo $_SESSION['id'];?>'>View your profile</a>
 	</button>
 
 	<button class="btn" type="button">
@@ -116,7 +116,8 @@
 
 		?>
 			<div class="card">
-				<a class="postlinks" href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
+				
+				<a class="postlinks" href="views/viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><img class="smallprofilepic" src="https://i.cubeupload.com/8Hf7dq.png"><p><b><?php print_r($post_data['title']);?></b></p></a>
 				<p><?php print_r($post_data['content']);?></p>
 				<p><?php print_r($post_data['posted_at']);?></p>
 				 

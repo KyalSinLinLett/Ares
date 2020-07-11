@@ -4,6 +4,25 @@ html, body {
   height: auto;
 }
 
+table, td, th {  
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 15px;
+}
+
+.smallprofilepic{
+  height:5%;
+  width: 5%;
+}
+
 .card {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);

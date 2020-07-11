@@ -40,7 +40,7 @@ include_once "../controller/likeApi/getLikes.php";
 
 ?>
 
-	<p>Author: <a class="profilelinks" href="profile.php"><?php print_r($post_data['author']);?></a></p>
+	<p>Author: <a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($post_data['author']);?></a></p>
 
 <?php
 		
@@ -175,7 +175,7 @@ if ($num_rows > 0){
 
 		?>
 
-				<a class="profilelinks" href="profile.php"><p><?php print_r($cmt_data['author'])?></p></a>
+				<a class="profilelinks" href="profile.php?user_id=<?php $_SESSION['id']?>"><p><?php print_r($cmt_data['author'])?></p></a>
 
 				<button class="btn" type="button">
 				<a href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php print_r($_GET['user_id']); ?>">Delete</a>

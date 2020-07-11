@@ -24,7 +24,7 @@
 
 		//create post
 		if ($post->create_post()){
-			header('location: ../../views/profile.php');
+			header('location: ../../views/profile.php?user_id='.$post->user_id);
 		} else {
 			echo "post not created";
 		}

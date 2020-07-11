@@ -1,7 +1,5 @@
 <?php 
 
-	session_start();
-
 	header('Access-Control-Allow-Origin: *');
 	header('Access-Control-Allow-Method: POST');
 	header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
@@ -18,12 +16,12 @@
 	$follow = new Follower($db);
 
 	//assign values 
-	$follow->user_id;
-	$follow->followed_by;
+	$follow->user_id = $_GET['user_id'];
+	$follow->followed_by = $_GET['followed_by'];
 
 	//execute
 	if ($follow->follow_user()){
-		echo "followed";
+		header('Location: ../../views/viewProfilePage.php?user_id='.$follow->user_id);
 	} else {
 		echo "follow failed";
 	}

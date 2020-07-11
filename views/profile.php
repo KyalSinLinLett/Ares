@@ -27,6 +27,33 @@
 			<p># <?php echo $email; ?></p>
 		</div>
 
+		<?php 
+
+
+		$user_id = $_GET['user_id'];
+		$followed_by = isset($_SESSION['id']) ? $_SESSION['id'] : "";
+
+
+		//showing followers and followings
+		include_once "../controller/followerApi/getFollowerCount.php";
+		include_once "../controller/followerApi/getFollowingCount.php";
+		
+		?>
+
+
+		<div>
+			<table>
+				<tr>
+					<th>Followers</th>
+					<th>Following</th>
+				</tr>
+				<tr>
+					<td><a href="showFollowerList.php?user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
+					<td><a href="showFollowingList.php?user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
+				</tr>
+			</table>
+		</div>
+
 		<div>
 			<button class="btn" type="button">
 				<a

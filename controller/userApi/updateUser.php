@@ -34,10 +34,10 @@
 			$_SESSION['profession'] = $_POST['profession'];
 			$_SESSION['biography'] = $_POST['biography'];
 
-			header('Location: ../../views/profile.php');
+			header('Location: ../../views/profile.php?user_id='.$_SESSION['id']);
 
 		} else {
-			echo "Update failed. <a href='../../profile.php'> Try again </a>";
+			echo "Update failed. <a href='../../profile.php?user_id=<?php echo user_id=$_SESSION['id']?>'> Try again </a>";
 		}	
 	}	
 

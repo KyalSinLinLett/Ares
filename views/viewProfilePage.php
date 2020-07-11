@@ -8,6 +8,10 @@
 
 <!-- Get user information from API -->
 <?php
+	
+	ob_start();
+	session_start();
+
 	include_once '../controller/userApi/visitProfile.php';
 ?>
 
@@ -18,8 +22,8 @@
 	</button>
 	<div class="profile-card">
 		
-		<img src="https://i.cubeupload.com/8Hf7dq.png">
-
+<!-- 		<img src="https://i.cubeupload.com/8Hf7dq.png">
+ -->
 		<h1><?php echo $name; ?></h1>
 		<p class='title'><?php echo $profession; ?></p>
 		<div id="information">
@@ -27,8 +31,78 @@
 			<p># <?php echo $birthday; ?></p>
 			<p># <?php echo $email; ?></p>
 		</div>
+
+
+<!-- following function -->
+
+		<!-- if logged in - show all -->
+
+		<?php 
+
+
+		$user_id = $_GET['user_id'];
+		$followed_by = isset($_SESSION['id']) ? $_SESSION['id'] : "";
+
+
+		//showing followers and followings
+		include_once "../controller/followerApi/getFollowerCount.php";
+		// include_once "../controller/followerApi/getFollowerList.php";
+		include_once "../controller/followerApi/getFollowingCount.php";
+		// include_once "../controller/followerApi/getFollowingList.php";
+		
+		?>
+
+
+		<div>
+			<table>
+				<tr>
+					<th>Followers</th>
+					<th>Following</th>
+				</tr>
+				<tr>
+					<td><a href="showFollowerList.php?user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
+					<td><a href="showFollowingList.php?user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
+				</tr>
+			</table>
+		</div>
+
+
+		<?php
+			if (isset($_SESSION['id'])){
+				include_once "../controller/followerApi/followValidate.php";
+			?>
+
+				
+
+			<?php
+
+				if ($condition > 0){ //does this user already follow this account?
+
+			?>
+				<!-- show unfollow button -->
+				<button class="btn" type="button">
+					<a href="../controller/followerApi/unfollowUser.php?user_id=<?php echo $user_id?>&followed_by=<?php echo $followed_by?>">Unfollow</a>
+				</button>	
+			<?php
+				} else {
+			?>
+				<!-- show follow button -->
+				<button class="btn" type="button">
+					<a href="../controller/followerApi/followUser.php?user_id=<?php echo $user_id?>&followed_by=<?php echo $followed_by?>">Follow</a>
+				</button>
+			<?php
+				}
+			}
+		?>
+
+
+
 	</div>
 </div>
+
+
+
+<!-- not logged in - show only the count and list-->
 
 <!-- Show posts -->
 <?php
@@ -77,6 +151,8 @@ if ($num_rows > 0){
 	}
 
 } 
+
+ob_flush();
 
 ?>
 

@@ -21,8 +21,6 @@
 
 	$like->user_id = $_GET['id']; //liking as the logged in user
 
-	echo $like->user_id;
-
 	if ($like->add_like()){
 		header("Location: ../../views/viewPost.php?user_id=$user_id&post_id=$like->post_id");	
 	} else {
