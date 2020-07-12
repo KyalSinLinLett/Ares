@@ -48,7 +48,7 @@
 
 			if (strcmp($email_from_db, $user->email) == 0){
 				if (password_verify($_POST['password'], $pwd_from_db)){
-					header("location: ../views/profile.php?user_id=".$SESSION['id']);	
+					header("location: ../views/profile.php?user_id=".$_SESSION['id']);	
 				} else {
 					echo "<p>Invalid email, password or user doesn't exist. Try again!</p>";
 					session_destroy();

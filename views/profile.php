@@ -73,8 +73,8 @@
 <div class="card">
 	<p class="createpostinfo">Share something</p>
 	<form action="../controller/postApi/createPost.php" method="POST">
-		<input type="text" name="title" placeholder="Title">
-		<input type="textares" name="content" placeholder="Share your thoughts">
+		<input type="text" name="title" placeholder="Title" required>
+		<input type="textares" name="content" placeholder="Share your thoughts" required>
 		<input type="submit" name="submit" value="Create">
 	</form>
 </div>

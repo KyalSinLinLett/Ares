@@ -6,12 +6,17 @@
 </head>
 <body>
 	
+<?php  
+
+ob_start();
+session_start();
+
+?>
+
 
 <!-- nf if user is not logged in -->
 <?php  
-
-	session_start();
-
+	
 	if (!isset($_SESSION['id'])){
 
 	?>
@@ -32,6 +37,17 @@
 			<p class="site-information">Ares is a social network.</p>
 
 			<p class="site-information">See what people are saying!</p>
+		</div>
+
+		<div class="card">
+			<form action="views/searchResults.php" method="POST">
+				<select name="search_by">
+					<option>Post</option>
+					<option>User</option>
+				</select>
+				<input type="text" name="s_query" placeholder="Search anything" required>
+				<input type="submit" name="search" value="Search">
+			</form>
 		</div>
 
 <?php
@@ -94,6 +110,17 @@
 		</div>
 	</div>
 
+	<div class="card">
+		<form action="views/searchResults.php" method="POST">
+			<select name="search_by">
+				<option>Post</option>
+				<option>User</option>
+			</select>
+			<input type="text" name="s_query" placeholder="Search anything" required>
+			<input type="submit" name="search" value="Search">
+		</form>
+	</div>
+
 	<?php
 
 		include_once "controller/postApi/getAllPostsNF.php";
@@ -144,6 +171,7 @@
 
 }
 
+ob_flush();
 ?>
 
 ?>

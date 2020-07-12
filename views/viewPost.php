@@ -127,8 +127,8 @@ if (isset($_SESSION['id'])){
 
 	<div class="card">
 		<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
-			<input type="text" name="cmt" placeholder="Add a comment">
-			<input type="submit" name="submit" value="Add">
+			<input type="text" name="cmt" placeholder="Add a comment" required>
+			<input type="submit" name="submit" value="Add" required>
 		</form>
 	</div>
 

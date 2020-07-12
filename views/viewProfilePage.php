@@ -22,8 +22,8 @@
 	</button>
 	<div class="profile-card">
 		
-<!-- 		<img src="https://i.cubeupload.com/8Hf7dq.png">
- -->
+		<img src="https://i.cubeupload.com/8Hf7dq.png">
+
 		<h1><?php echo $name; ?></h1>
 		<p class='title'><?php echo $profession; ?></p>
 		<div id="information">
