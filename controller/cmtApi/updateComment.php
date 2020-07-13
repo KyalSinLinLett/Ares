@@ -1,10 +1,10 @@
 <?php 
 
-	session_start();
+	// session_start();
 
-	header("Allow-Access-Control-Origin: *");
-	header("Allow-Access-Control-Methods: POST");
-	header("Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Authorization, X-Requested-With");
+	// header("Allow-Access-Control-Origin: *");
+	// header("Allow-Access-Control-Methods: POST");
+	// header("Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Authorization, X-Requested-With");
 
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/Comment.php";

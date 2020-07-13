@@ -187,6 +187,23 @@
 			return $stmt;
 		}		
 
+		public function get_content(){
+			//query
+			$query = "SELECT content FROM ".$this->table." WHERE post_id = :post_id";
+
+			//stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':post_id', $this->post_id);
+
+			//execute
+			$stmt->execute();
+
+			return $stmt;
+
+		}
+
 	}
 
 ?>

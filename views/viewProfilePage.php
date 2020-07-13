@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Visit</title>
-	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
-</head>
+<!-- 	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
+ --></head>
 <body>
 
 <!-- Get user information from API -->
@@ -18,12 +18,10 @@
 <!-- display the information in HTML -->
 <div>
 	<button class="homebtn" type="button">
-		<a href="../index.php">Back to feed</a>
+		<a href="newsfeed.php">Back to feed</a>
 	</button>
+	<hr>
 	<div class="profile-card">
-		
-		<img src="https://i.cubeupload.com/8Hf7dq.png">
-
 		<h1><?php echo $name; ?></h1>
 		<p class='title'><?php echo $profession; ?></p>
 		<div id="information">
@@ -31,6 +29,7 @@
 			<p># <?php echo $birthday; ?></p>
 			<p># <?php echo $email; ?></p>
 		</div>
+
 
 
 <!-- following function -->
@@ -52,7 +51,7 @@
 		
 		?>
 
-
+		<hr>
 		<div>
 			<table>
 				<tr>
@@ -72,12 +71,8 @@
 				include_once "../controller/followerApi/followValidate.php";
 			?>
 
-				
-
 			<?php
-
 				if ($condition > 0){ //does this user already follow this account?
-
 			?>
 				<!-- show unfollow button -->
 				<button class="btn" type="button">
@@ -94,15 +89,9 @@
 				}
 			}
 		?>
-
-
-
 	</div>
 </div>
-
-
-
-<!-- not logged in - show only the count and list-->
+<hr>
 
 <!-- Show posts -->
 <?php
@@ -145,6 +134,7 @@ if ($num_rows > 0){
 
 		<p style="font-style: italic;">Author: <?php echo $name;?></p>
 	</div>
+	<hr>	
 
 <?php
 

@@ -1,10 +1,10 @@
 <?php  
 	
-	session_start();
+	// session_start();
 
-	header("Access-Control-Allow-Origin: *");
-	header("Allow-Control-Allow-Methods: DELETE");
-	header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
+	// header("Access-Control-Allow-Origin: *");
+	// header("Allow-Control-Allow-Methods: DELETE");
+	// header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/Comment.php";

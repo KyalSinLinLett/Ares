@@ -1,8 +1,8 @@
 <?php 
 
-	header('Access-Control-Allow-Origin: *');
-	header('Access-Control-Allow-Method: POST');
-	header('Access-Control-Allow-Headers: Access-Control-Allow-Method, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+	// header('Access-Control-Allow-Origin: *');
+	// header('Access-Control-Allow-Method: POST');
+	// header('Access-Control-Allow-Headers: Access-Control-Allow-Method, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/Like.php";

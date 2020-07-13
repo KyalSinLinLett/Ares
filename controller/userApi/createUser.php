@@ -1,10 +1,9 @@
 <?php  
+	// session_start();
 
-	session_start();
-
-	header('Access-Control-Allow-Origin: *');
-	header('Access-Control-Allow-Methods: PUT');
-	header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Authorization, X-Requested-With');
+	// header('Access-Control-Allow-Origin: *');
+	// header('Access-Control-Allow-Methods: PUT');
+	// header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/User.php";
@@ -52,7 +51,7 @@
 
 			if ($user->create_user()){
 				echo "User Created";
-				header("location: ../../views/login.php");
+				header("location: ../../index.php");
 			} else {
 				$message = "Failed to create user. Email in use.";
 				header("Location: ../../views/signup.php?message=$message");

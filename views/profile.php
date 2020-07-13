@@ -2,22 +2,25 @@
 <html>
 <head>
 <title>Your profile</title>
-<link rel="stylesheet" type="text/css" href="profilepage/main.css">
+<!-- <link rel="stylesheet" type="text/css" href="profilepage/main.css"> -->
 </head>
 <body>
 <?php
+	
+	ob_start();
+	session_start();
+
 	include_once '../controller/userApi/getUser.php';
 ?>
 
 <!-- Show user info -->
 <div>
 	<button class="homebtn" type="button">
-		<a href="../index.php?name=<?php echo $name; ?>">Go to feed</a>
+		<a href="newsfeed.php?name=<?php echo $name; ?>">Go to feed</a>
 	</button>
+
+	<hr>
 	<div class="profile-card">
-
-
-		<img src="https://i.cubeupload.com/8Hf7dq.png">
 
 		<h1><?php echo $name; ?></h1>
 		<p class='title'><?php echo $profession; ?></p>
@@ -26,6 +29,8 @@
 			<p># <?php echo $birthday; ?></p>
 			<p># <?php echo $email; ?></p>
 		</div>
+
+		<hr>
 
 		<?php 
 
@@ -53,7 +58,7 @@
 				</tr>
 			</table>
 		</div>
-
+		<hr>
 		<div>
 			<button class="btn" type="button">
 				<a
@@ -68,6 +73,7 @@
 		</div>
 	</div>
 </div>
+<hr>
 
 <!-- Create post -->
 <div class="card">
@@ -78,7 +84,7 @@
 		<input type="submit" name="submit" value="Create">
 	</form>
 </div>
-
+<hr>
 
 <!-- Show posts -->
 <?php
@@ -120,14 +126,9 @@ if ($num_rows > 0){
 			</p>
 
 			<button class="btn" type="button">
-				<a href="editPostPage.php?
-					
-					title=<?php print_r($post_data['title']);?>
-					&content=<?php print_r($post_data['content']);?>
+				<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>
 					&post_id=<?php print_r($post_data['post_id']);?>">
-
 					Edit
-				
 				</a>
 			</button>
 			<button class="btn" type="button">
@@ -144,12 +145,15 @@ if ($num_rows > 0){
 				</a>
 			</button>
 		</div>
+		<hr>
 	
 <?php
 
 	}
 
 } 
+
+ob_flush();
 
 ?>
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Search Results</title>
-	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="profilepage/main.css"> -->
 </head>
 <body>
 	<?php 
@@ -25,6 +25,7 @@
 		<?php
 				} else {
 		?>
+				<hr>
 				<div class="card">
 					
 					<?php	
@@ -44,6 +45,7 @@
 					
 					<p><?php echo $rs['biography']?></p>
 				</div>
+				<hr>
 		<?php		
 				}
 			}
@@ -51,12 +53,11 @@
 		?>
 
 			<div class="card">
-				<p>No results found. <a style="color: #008CBA;" href="../index.php">Try again</a></p>
+				<p>No results found. <a style="color: #008CBA;" href="newsfeed.php">Try again</a></p>
 			</div>
 
 		<?php
 		}
-
 		ob_flush();
 	?>
 </body>

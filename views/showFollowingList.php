@@ -2,10 +2,14 @@
 <html>
 <head>
 	<title>Following</title>
-	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="profilepage/main.css"> -->
 </head>
 <body>
 
+		<button class="homebtn" type="button">
+			<a href="newsfeed.php?name=<?php echo $name; ?>">Go to feed</a>
+		</button>
+		<hr>
 		<div class="card">
 			<table>
 				<tr>

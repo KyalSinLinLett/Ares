@@ -2,13 +2,13 @@
 <html>
 <head>
 <title>View Post</title>
-<link rel="stylesheet" type="text/css" href="profilepage/main.css">
-</head>
+<!-- <link rel="stylesheet" type="text/css" href="profilepage/main.css">
+ --></head>
 <body>
 
 <?php
 
-	ob_start();
+	// ob_start();
 	session_start();
 
 ?>
@@ -21,9 +21,11 @@ include_once "../controller/likeApi/getLikes.php";
 ?>
 
 <button class="homebtn" type="button">
-<a href="../index.php?name=<?php print_r($post_data['author']);?>">Go to feed</a>
+<a href="newsfeed.php?name=<?php print_r($post_data['author']);?>">Go to feed</a>
 </button>
 
+<br>
+<hr>
 <!-- show post content -->
 <div class="card">
 <p><b><?php print_r($post_data['title']);?></b></p>
@@ -59,7 +61,7 @@ include_once "../controller/likeApi/getLikes.php";
 <?php
 	}
 ?>
-
+<hr>
 <!-- likes -->
 <?php 
 	
@@ -97,11 +99,10 @@ include_once "../controller/likeApi/getLikes.php";
 
 	if (isset($_SESSION['id'])){
 		if ($post_data['posted_by'] == $_SESSION['id']){
-	
 ?>
-
+	<hr>
 	<button class="btn" type="button">
-		<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&content=<?php print_r($post_data['content']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
+		<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
 	</button>
 	<button class="btn" type="button">
 		<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
@@ -115,7 +116,7 @@ include_once "../controller/likeApi/getLikes.php";
 ?>
 
 </div>
-
+<hr>
 
 <!-- Adding comments -->
 
@@ -124,7 +125,7 @@ include_once "../controller/likeApi/getLikes.php";
 if (isset($_SESSION['id'])){
 
 ?>
-
+	<hr>
 	<div class="card">
 		<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
 			<input type="text" name="cmt" placeholder="Add a comment" required>
@@ -160,7 +161,7 @@ if ($num_rows > 0){
 		);
 
 ?>
-
+	<hr>
 	<div class="comment-card">
 		<p>> <?php print_r($cmt_data['comment']);?></p>
 		<p><?php print_r($cmt_data['posted_at']);?></p>
@@ -178,7 +179,7 @@ if ($num_rows > 0){
 				<a class="profilelinks" href="profile.php?user_id=<?php $_SESSION['id']?>"><p><?php print_r($cmt_data['author'])?></p></a>
 
 				<button class="btn" type="button">
-				<a href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php print_r($_GET['user_id']); ?>">Delete</a>
+				<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php print_r($_GET['user_id']); ?>">Delete</a>
 				</button>
 
 				<button class="btn" type="button">
