@@ -17,6 +17,8 @@
 
 	if (isset($_POST['search'])){
 
+		$user_id = $_POST['user_id'];
+
 		$search->s_query = $_POST['s_query'];
 			
 		if (strcmp($_POST['search_by'], "User")==0){

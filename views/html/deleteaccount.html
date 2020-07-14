@@ -8,8 +8,12 @@
 		<form action="../controller/userApi/deleteUser.php" method="post">
 			
 			<b>Delete account</b>
-			<a href="newsfeed.php"><b style="font-style: italic;">Cancel</b></a>
+			<a href="newsfeed.php?user_id=<?php echo $user_id;?>"><b style="font-style: italic;">Cancel</b></a>
 			<p><small>We are sad to see you go</small></p>
+
+			<div>
+				<input type="text" name="user_id" value="<?php echo $user_id;?>" readonly>
+			</div>
 
 			<div>
 				Confirm Email

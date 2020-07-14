@@ -18,11 +18,11 @@
 
 	$cmt->comment = $_POST['cmt'];
 	$cmt->post_id = $_GET['post_id'];
-	$cmt->posted_by = $_SESSION['id']; //id of the logged in user
-	$user_id = $_GET['user_id']; // id of the owner of the post
+	$cmt->posted_by = $_GET['user_id']; //id of the logged in user
+	$post_owner_id = $_GET['posted_by']; // id of the owner of the post
 
 	if ($cmt->add_comment()){
-		header("location: ../../views/viewPost.php?user_id=$user_id&post_id=$cmt->post_id");
+		header("location: ../../views/viewPost.php?posted_by=$post_owner_id&user_id=$cmt->posted_by&post_id=$cmt->post_id");
 	} else {
 		echo "comment cannot be added";
 	}

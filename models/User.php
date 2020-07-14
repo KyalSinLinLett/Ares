@@ -81,7 +81,7 @@
 		// function to get a user (R)
 		public function get_user(){
 			//create query
-			$query = "SELECT name, email, birthday, profession, biography 
+			$query = "SELECT id, name, email, birthday, profession, biography 
 
 					  FROM ".$this->table.' 
 
@@ -144,14 +144,14 @@
 			//create query
 			$query = "DELETE FROM ".$this->table." 
 
-					  WHERE id = :id and email = :email and password = :password;";
+					  WHERE id = :id and password = :password;";
 
 			//create stmt
 			$stmt = $this->conn->prepare($query);
 
 			//bind id and other params
 			$stmt->bindParam(':id', $this->id);
-			$stmt->bindParam(':email', $this->email);
+			// $stmt->bindParam(':email', $this->email);
 			$stmt->bindParam(':password', $this->password);
 
 			//execute statement

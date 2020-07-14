@@ -12,6 +12,8 @@ include("../codesnippets/ifsessionISNOTset.php");
 
 					// GET - catch data using GET
 					// REQUEST - catch data using POST and GET
+
+					$user_id = $_GET['user_id'];
 					$name = $_GET['name'];
 					$birthday = $_GET['birthday'];
 					$profession = $_GET['profession'];
@@ -20,9 +22,14 @@ include("../codesnippets/ifsessionISNOTset.php");
 
 				<!-- edit profile text -->
 				Edit profile
-				<a href="newsfeed.php"><b style="font-style: italic;">Cancel</b></a>
+				<a href="newsfeed.php?user_id=<?php echo $user_id?>"><b style="font-style: italic;">Cancel</b></a>
 				<hr>
 				<!-- name text and input box -->
+				<div>
+					Id
+					<input type="text" name="user_id" value="<?php echo $user_id; ?>" readonly>
+				</div>
+				<br>
 				<div>
 					Name
 					<input type="text" name="name" value="<?php echo $name; ?>">
@@ -56,8 +63,8 @@ include("../codesnippets/ifsessionISNOTset.php");
 
 			<!-- more functions -->
 			<div>
-				<a href="changepasswordpage.php"><b style="font-style: italic;">Change password?</b></a>
-				<a href="deleteaccount.php"><b style="font-style: italic;">Delete account?</b></a>
+				<a href="changepasswordpage.php?user_id=<?php echo $user_id?>"><b style="font-style: italic;">Change password?</b></a>
+				<a href="deleteaccount.php?user_id=<?php echo $user_id;?>"><b style="font-style: italic;">Delete account?</b></a>
 			</div>
 </div>
 

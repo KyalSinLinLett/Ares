@@ -24,7 +24,7 @@
 
 		//execute query - edit
 		if ($post->edit_post()){
-			header("location: ../../views/profile.php?user_id=".$_SESSION['id']);
+			header("location: ../../views/profile.php?user_id=".$_POST['user_id']);
 		} else {
 			echo "post not edited";
 		}

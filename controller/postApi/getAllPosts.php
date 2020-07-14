@@ -15,7 +15,7 @@
 	$post = new Post($db);
 
 	//set the user id
-	$post->user_id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
+	$post->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
 	//set the result to $rs
 	$result = $post->get_all_posts();

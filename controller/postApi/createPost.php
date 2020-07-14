@@ -18,7 +18,7 @@
 
 	if (isset($_POST['submit'])){
 
-		$post->user_id = $_SESSION['id'];
+		$post->user_id = $_POST['user_id'];
 		$post->title = $_POST['title'];
 		$post->content = $_POST['content'];
 

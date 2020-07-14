@@ -19,7 +19,7 @@
 
 	if (isset($_POST['submit'])){
 		//get user id
-		$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
+		$user->id = $_POST['user_id'];
 
 		//updated details set to the user attributes
 		$user->name = $_POST['name'];
@@ -28,16 +28,9 @@
 		$user->biography = $_POST['bio'];
 
 		if ($user->update_user()){
-				
-			$_SESSION['name'] = $_POST['name'];
-			$_SESSION['email'] = $_POST['email'];
-			$_SESSION['profession'] = $_POST['profession'];
-			$_SESSION['biography'] = $_POST['biography'];
-
-			header('Location: ../../views/profile.php?user_id='.$_SESSION['id']);
-
+			echo "<a href='../../views/profile.php?user_id=$user->id'>Back to profile</a>";
 		} else {
-			echo "Update failed. <a href='../../profile.php?user_id=<?php echo user_id=$_SESSION['id']?>'> Try again </a>";
+			echo "Update failed.";
 		}	
 	}	
 

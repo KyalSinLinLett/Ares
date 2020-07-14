@@ -14,7 +14,7 @@
 	//instantiate post object
 	$like = new Like($db);
 
-	$like->user_id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
+	$like->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
 	$like->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die();
 

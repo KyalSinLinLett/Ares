@@ -19,7 +19,7 @@
 	if (isset($_POST['submit'])){
 
 		//set the id of the user we want to change the password to
-		$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
+		$user->id = isset($_POST['user_id']) ? $_POST['user_id'] : die();
 
 		//set the retrieved password as $res - can access hash using $res['password']
 		$res = $user->get_hashed_password();

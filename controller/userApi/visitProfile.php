@@ -15,7 +15,7 @@
 	$user = new User($db);
 
 	//get user id
-	$user->id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	$user->id = isset($_GET['posted_by']) ? $_GET['posted_by'] : die();
 
 	//perform a get user query
 	$user = $user->get_user();	

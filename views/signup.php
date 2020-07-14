@@ -4,7 +4,7 @@ session_start();
 
 //makes sure that the user cannot sign up again or log in once they have already logged in
 if (isset($_SESSION['id'])){
-	header('Location: newsfeed.php');
+	header('Location: newsfeed.php?user_id='.$_SESSION['id']);
 	exit();
 }
 

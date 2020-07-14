@@ -18,13 +18,14 @@
 
 	if (isset($_POST['submit'])){
 
+		$user_id = $_REQUEST['user_id'];
 		$cmt->cmt_id = $_REQUEST['cmt_id'];
 		$cmt->comment = $_POST['comment'];
 		$cmt->post_id = $_REQUEST['post_id'];
 
 		//execute query - edit
 		if ($cmt->edit_comment()){
-			header("location: ../../views/viewPost.php?post_id=$cmt->post_id");
+			header("location: ../../views/viewPost.php?user_id=$user_id&post_id=$cmt->post_id");
 		} else {
 			echo "comment not edited";
 		}

@@ -9,7 +9,7 @@
 <?php
 
 	// ob_start();
-	session_start();
+		session_start();
 
 ?>
 
@@ -21,7 +21,7 @@ include_once "../controller/likeApi/getLikes.php";
 ?>
 
 <button class="homebtn" type="button">
-<a href="newsfeed.php?name=<?php print_r($post_data['author']);?>">Go to feed</a>
+<a href="newsfeed.php?user_id=<?php echo $_GET['user_id'];?>">Go to feed</a>
 </button>
 
 <br>
@@ -37,38 +37,27 @@ include_once "../controller/likeApi/getLikes.php";
 <!-- Profile links based on logged in user -->
 <?php
 	//if the post author is the logged in user 
-	if (isset($_SESSION['id'])){
-		if (strcmp($_SESSION['id'], $post_data['posted_by']) == 0){
+	if (strcmp($_GET['user_id'], $post_data['posted_by']) == 0){
 
 ?>
 
-	<p>Author: <a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($post_data['author']);?></a></p>
+	<p>Author: <a class="profilelinks" href="profile.php?user_id=<?php echo $_GET['user_id']?>"><?php print_r($post_data['author']);?></a></p>
 
 <?php
 		
 	} else {
 ?>
 
-	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>
+	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php echo $_GET['user_id']?>&posted_by=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>
 
 <?php
 		}
-	} else {
-?>
-
-	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>	
-
-<?php
-	}
 ?>
 <hr>
 <!-- likes -->
 <?php 
 	
-	//is user already logged in?
-	if (isset($_SESSION['id'])){
-
-		$id = $_SESSION['id'];
+		$user_id = $_GET['user_id'];
 
 		// is this post already been liked by user?
 		include_once "../controller/check_liked.php";
@@ -77,7 +66,7 @@ include_once "../controller/likeApi/getLikes.php";
 		?>
 			<!-- Show unlike button -->
 			<button class="btn" type="button">
-				<a href="../controller/likeApi/unlike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Unlike</a>
+				<a href="../controller/likeApi/unlike.php?user_id=<?php echo $user_id;?>&posted_by=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Unlike</a>
 			</button>
 			
 		<?php
@@ -85,36 +74,31 @@ include_once "../controller/likeApi/getLikes.php";
 		?>	
 			<!-- show like button -->
 			<button class="btn" type="button">
-				<a href="../controller/likeApi/addLike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Like</a>
+				<a href="../controller/likeApi/addLike.php?user_id=<?php echo $user_id;?>&posted_by=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Like</a>
 			</button>
 			
 		<?php
 		}	
-	}	
+		
 
 ?>
 
 <!-- show edit, delete buttons if user is logged in -->
 <?php 
-
-	if (isset($_SESSION['id'])){
-		if ($post_data['posted_by'] == $_SESSION['id']){
+	if ($post_data['posted_by'] == $_GET['user_id']){
 ?>
 	<hr>
 	<button class="btn" type="button">
-		<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
+		<a href="editPostPage.php?user_id=<?php echo $_GET['user_id'];?>&title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
 	</button>
 	<button class="btn" type="button">
-		<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
+		<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?user_id=<?php echo $_GET['user_id']?>&post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
 	</button>
 
 <?php
-
-		}
 	}
-
 ?>
-
+	
 </div>
 <hr>
 
@@ -169,44 +153,28 @@ if ($num_rows > 0){
 		
 				
 		<?php
-
-			if (isset($_SESSION['id'])){
-				if (strcmp($_SESSION['id'], $cmt_data['posted_by']) == 0){
-
-
+			if (strcmp($_GET['user_id'], $cmt_data['posted_by']) == 0){
 		?>
 
-				<a class="profilelinks" href="profile.php?user_id=<?php $_SESSION['id']?>"><p><?php print_r($cmt_data['author'])?></p></a>
-
+				<a class="profilelinks" href="profile.php?user_id=<?php echo $cmt_data['posted_by']?>"><p><?php print_r($cmt_data['author'])?></p></a>
 				<button class="btn" type="button">
 				<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php print_r($_GET['user_id']); ?>">Delete</a>
 				</button>
 
 				<button class="btn" type="button">
-				<a href="editCommentPage.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>">Edit</a>
+				<a href="editCommentPage.php?user_id=<?php echo $_GET['user_id']?>&post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>">Edit</a>
 				</button>
 
 		<?php
 
-				} else {
-
-		?>
-			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>
-			 
-
-			
-		<?php
-				}
 			} else {
+
 		?>
-
-			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>	
-
+			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php echo $_GET['user_id']?>&posted_by=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>
 		<?php
-
 			}
-
 		?>
+
 			
 	</div>
 

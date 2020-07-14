@@ -21,7 +21,7 @@
 
 	//execute
 	if ($follow->unfollow_user()){
-		header('Location: ../../views/viewProfilePage.php?user_id='.$follow->user_id);
+		header('Location: ../../views/viewProfilePage.php?posted_by='.$follow->user_id.'&user_id='.$follow->followed_by);
 	} else {
 		echo "unfollow failed";
 	}

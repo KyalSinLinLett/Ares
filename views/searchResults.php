@@ -8,7 +8,6 @@
 	<?php 
 		
 		ob_start();
-		session_start();
 
 		include_once "../controller/search.php";
 
@@ -19,7 +18,7 @@
 				if ($_POST['search_by'] == "Post"){
 		?>
 			<div class="card">
-				<p><a style="color: #008CBA;" href="viewPost.php?post_id=<?php echo $rs['post_id']?>"><?php echo $rs['title']?></a></p>
+				<p><a style="color: #008CBA;" href="viewPost.php?user_id=<?php echo $user_id;?>&post_id=<?php echo $rs['post_id']?>"><?php echo $rs['title']?></a></p>
 				<p><?php echo $rs['content']?></p>
 			</div>
 		<?php
@@ -29,18 +28,17 @@
 				<div class="card">
 					
 					<?php	
-						if (isset($_SESSION['id'])){
-							if (strcmp($_SESSION['id'], $rs['id'])==0){
+							if (strcmp($user_id, $rs['id'])==0){
 					?>
 							<p><a style="color: #008CBA;" href="profile.php?user_id=<?php echo $rs['id']?>"><?php echo $rs['name']?></a></p>
 							
 					<?php
 							} else {
 					?>		
-							<p><a style="color: #008CBA;" href="viewProfilePage.php?user_id=<?php echo $rs['id']?>"><?php echo $rs['name']?></a></p>
+							<p><a style="color: #008CBA;" href="viewProfilePage.php?user_id=<?php echo $user_id;?>&posted_by=<?php echo $rs['id']?>"><?php echo $rs['name']?></a></p>
 					<?php
 							}
-						} 
+						 
 					?>
 					
 					<p><?php echo $rs['biography']?></p>

@@ -10,6 +10,7 @@
 	include("../codesnippets/ifsessionISNOTset.php");
 	include("../controller/postApi/getPostContent.php");
 
+	$user_id = $_GET['user_id'];
 	$title = isset($_GET['title']) ? $_GET['title'] : die();
 	$content = $cont['content'];
 	$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die(); 
@@ -20,8 +21,13 @@
 		<form action="../controller/postApi/editPost.php?post_id=<?php echo $post_id;?>" method="post">
 
 			<b>Edit post</b>
-			<a href="profile.php?user_id=<?php echo $_SESSION['id']?>"><b style="font-style: italic;">Cancel</b></a>
+			<a href="profile.php?user_id=<?php echo $_GET['user_id']?>"><b style="font-style: italic;">Cancel</b></a>
 			<hr>
+			<!-- Title -->
+			<div>
+				<input type="text" name="user_id" value="<?php echo $user_id; ?>" readonly>
+			</div>
+
 			<!-- Title -->
 			<div>
 				<b>Title</b>

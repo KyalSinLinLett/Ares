@@ -22,7 +22,7 @@ session_start();
 ?>
 
 	<button class="btn" type="button">
-		<a href="profile.php?user_id=<?php echo $_SESSION['id'];?>">View your profile</a>
+		<a href="profile.php?user_id=<?php echo $_GET['user_id'];?>">View your profile</a>
 	</button>
 
 	<button class="button" type="button">
@@ -32,8 +32,7 @@ session_start();
 	<div class="welcome-card">
 		<hr>
 		<div>
-			<p class="welcome">Welcome to your feed, <i><b><?php
-				echo $_SESSION['name']; ?></b></i></p>
+			<p class="welcome"><i>Welcome to your feed.</i></p>
 		</div>
 		<div>
 			<p class="site-information">Follow these folks!</p>
@@ -47,6 +46,7 @@ session_start();
 				<option>Post</option>
 				<option>User</option>
 			</select>
+			<input type="text" name="user_id" value="<?php echo $_GET['user_id']?>" readonly>
 			<input type="text" name="s_query" placeholder="Search anything" required>
 			<input type="submit" name="search" value="Search">
 		</form>
@@ -75,15 +75,15 @@ session_start();
 
 		?>
 			<div class="card">
-				<a class="postlinks" href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
+				<a class="postlinks" href="viewPost.php?posted_by=<?php echo $rs['id'];?>&user_id=<?php echo $_GET['user_id']?>&post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
 				<p><?php print_r($post_data['content']);?></p>
 				<p><?php print_r($post_data['posted_at']);?></p>
 				<?php
-					if (strcmp($post_data['user_id'],$_SESSION['id'])==0){
+					if (strcmp($post_data['user_id'],$_GET['user_id'])==0){
 						echo "<p>Posted by me</p>";
 					} else {
 				?>
-						<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a></p>
+						<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php echo $_GET['user_id']?>&posted_by=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a></p>
 				<?php
 					}
 				?>
