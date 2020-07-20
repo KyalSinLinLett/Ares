@@ -33,9 +33,7 @@
 				'name' => $_POST['name'],
 				'password' => $hashed_password,
 				'email' => $_POST['email'],
-				'birthday' => $_POST['birthday'],
-				'profession' => $_POST['profession'],
-				'biography' => $_POST['bio']
+				'birthday' => $_POST['birthday']
 			);
 
 			$data = json_encode($raw_data);
@@ -46,8 +44,8 @@
 			$user->password = $data->password;
 			$user->email = $data->email;
 			$user->birthday = $data->birthday;
-			$user->profession = $data->profession;
-			$user->biography = $data->biography;
+			// $user->profession = $data->profession;
+			// $user->biography = $data->biography;
 
 			if ($user->create_user()){
 				echo "User Created";

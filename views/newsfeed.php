@@ -3,8 +3,7 @@
 <head>
 	<title>Ares feed</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- 	<link rel="stylesheet" type="text/css" href="views/profilepage/main.css"> -->
+	<link rel="stylesheet" type="text/css" href="design/main.css">
 </head>
 <body>
 	
@@ -27,12 +26,11 @@ session_start();
 		<a href="profile.php?user_id=<?php echo $_SESSION['id'];?>">View your profile</a>
 	</button>
 
-	<button class="button" type="button">
-		<a onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'>Log out</a>		
+	<button class="btn" type="button">
+		<a onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'>Log out</a>
 	</button>				
 
 	<div class="welcome-card">
-		<hr>
 		<div>
 			<p class="welcome">Welcome to your feed, <i><b><?php
 				echo $_SESSION['name']; ?></b></i></p>
@@ -42,8 +40,7 @@ session_start();
 		</div>
 	</div>
 
-	<hr>
-	<div class="card">
+	<div>
 		<form action="searchResults.php" method="POST">
 			<select name="search_by">
 				<option>Post</option>
@@ -53,7 +50,6 @@ session_start();
 			<input type="submit" name="search" value="Search">
 		</form>
 	</div>
-	<hr>
 
 	<?php
 
@@ -77,20 +73,21 @@ session_start();
 
 		?>
 			<div class="card">
-				<a class="postlinks" href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
-				<p><?php print_r($post_data['content']);?></p>
-				<p><?php print_r($post_data['posted_at']);?></p>
 				<?php
 					if (strcmp($post_data['user_id'],$_SESSION['id'])==0){
-						echo "<p>Posted by me</p>";
+						echo "<small>Posted by me</small>";
 					} else {
 				?>
-						<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a></p>
+						<small><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a> made a post.</small>
 				<?php
 					}
 				?>
+				<hr>
+				<a class="post-links" href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
+<!-- 				<p><?php //	print_r($post_data['content']);?></p>
+ -->				<small><?php print_r($post_data['posted_at']);?></small>
+				
 			</div>
-			<hr>
 		
 		<?php
 
