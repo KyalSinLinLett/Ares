@@ -1,8 +1,8 @@
 <?php 
 
-	// header('Access-Control-Allow-Origin: *');
-	// header('Access-Control-Allow-Method: GET');
-	// header('Access-Control-Allow-Headers: Access-Control-Allow-Method, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Method: GET');
+	header('Access-Control-Allow-Headers: Access-Control-Allow-Method, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
 	include_once "../dbconnector/Database.php";
 	include_once "../models/Like.php";
@@ -14,7 +14,7 @@
 	//instantiate post object
 	$like = new Like($db);
 
-	$like->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	$like->user_id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
 
 	$like->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die();
 

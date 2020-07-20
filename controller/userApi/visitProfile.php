@@ -1,8 +1,8 @@
 <?php
 
-	// header('Access-Control-Allow-Origin: *');
-	// header('Access-Control-Allow-Method: GET');
-	// header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Method: GET');
+	header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
 
 	include_once '../dbconnector/Database.php';
 	include_once '../models/User.php';
@@ -15,7 +15,7 @@
 	$user = new User($db);
 
 	//get user id
-	$user->id = isset($_GET['posted_by']) ? $_GET['posted_by'] : die();
+	$user->id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
 	//perform a get user query
 	$user = $user->get_user();	

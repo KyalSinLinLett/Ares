@@ -1,9 +1,9 @@
 <?php
-	// session_start();
+	session_start();
 
-	// header('Allow-Access-Control-Origin: *');
-	// header('Allow-Access-Control-Methods: PUT');
-	// header('Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Content-Type, Authorization, X-Requested-With');
+	header('Allow-Access-Control-Origin: *');
+	header('Allow-Access-Control-Methods: PUT');
+	header('Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Content-Type, Authorization, X-Requested-With');
 
 	include_once "../dbconnector/Database.php";
 	include_once "../models/User.php";
@@ -19,7 +19,7 @@
 	if (isset($_POST['submit'])){
 
 		//set the id of the user we want to change the password to
-		$user->id = isset($_POST['user_id']) ? $_POST['user_id'] : die();
+		$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
 
 		//set the retrieved password as $res - can access hash using $res['password']
 		$res = $user->get_hashed_password();
@@ -42,7 +42,7 @@
 
 				if ($user->update_password()){
 					echo "Password updated.";
-					include('logout.php');
+					header("location: logout.php");
 				} else {
 					echo "Please try again";
 				}

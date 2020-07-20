@@ -2,12 +2,19 @@
 <html>
 <head>
 <title>Your profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- <link rel="stylesheet" type="text/css" href="profilepage/main.css"> -->
 </head>
 <body>
 <?php
 	
 	ob_start();
+	session_start();
+	if (!isset($_SESSION['id'])){
+	    header('Location: ../index.php');
+	    exit();
+	}
 
 	include_once '../controller/userApi/getUser.php';
 ?>
@@ -15,8 +22,8 @@
 <!-- Show user info -->
 <div>
 	<button class="homebtn" type="button">
-		<a href="newsfeed.php?user_id=<?php echo $_GET['user_id']?>">Go to feed</a>
-	</button>	
+		<a href="newsfeed.php?name=<?php echo $name; ?>">Go to feed</a>
+	</button>
 
 	<hr>
 	<div class="profile-card">
@@ -33,7 +40,10 @@
 
 		<?php 
 
+
 		$user_id = $_GET['user_id'];
+		$followed_by = isset($_SESSION['id']) ? $_SESSION['id'] : "";
+
 
 		//showing followers and followings
 		include_once "../controller/followerApi/getFollowerCount.php";
@@ -49,8 +59,8 @@
 					<th>Following</th>
 				</tr>
 				<tr>
-					<td><a href="showFollowerList.php?nf=<?php echo $_GET['user_id'];?>&user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
-					<td><a href="showFollowingList.php?nf=<?php echo $_GET['user_id'];?>&user_id=<? echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
+					<td><a href="showFollowerList.php?user_id=<?php echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
+					<td><a href="showFollowingList.php?user_id=<?php echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
 				</tr>
 			</table>
 		</div>
@@ -58,8 +68,8 @@
 		<div>
 			<button class="btn" type="button">
 				<a
-					href="editprofile.php?user_id=<?php echo $_GET['user_id']?>
-						&name=<?php echo $name;?>
+					href="editprofile.php?
+						name=<?php echo $name;?>
 						&birthday=<?php echo $birthday;?>
 						&profession=<?php echo $profession;?>
 						&biography=<?php echo $biography;?>">
@@ -75,9 +85,8 @@
 <div class="card">
 	<p class="createpostinfo">Share something</p>
 	<form action="../controller/postApi/createPost.php" method="POST">
-		<input type="text" name="user_id" value="<?php echo $_GET['user_id']?>" readonly>
-		<input type="text" name="title" placeholder="Title" required>
-		<input type="textares" name="content" placeholder="Share your thoughts" required>
+		<input type="text" name="title" maxlength="50" placeholder="Title" required>
+		<input type="textares" name="content" maxlength="10000" placeholder="Share your thoughts" required>
 		<input type="submit" name="submit" value="Create">
 	</form>
 </div>
@@ -119,26 +128,28 @@ if ($num_rows > 0){
 
 			<!-- get author name from session -->
 			<p style="font-style: italic;">
-				Author: <?php echo $name?>
+				Author: <?php echo $_SESSION['name'];?>
 			</p>
 
-<!-- 			<button class="btn" type="button">
-				<a href="editPostPage.php?title=<?php //print_r($post_data['title']);?>
-					&post_id=<?php //print_r($post_data['post_id']);?>">
+			<button class="btn" type="button">
+				<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>
+					&post_id=<?php print_r($post_data['post_id']);?>">
 					Edit
 				</a>
 			</button>
 			<button class="btn" type="button">
 				<a 
 
-				onClick="javascript: return confirm('Please comfirm deletion');"
+				onClick="javascript: return confirm('Are you sure you want to delete?');"
 
-				href="../controller/postApi/deletePost.php?user_id=<?php //echo $_GET['user_id']; ?>&post_id=<?php //print_r($post_data['post_id']); ?>">
+				href="../controller/postApi/deletePost.php?
+
+					post_id=<?php print_r($post_data['post_id']); ?>">
 
 					Delete
 
 				</a>
-			</button> -->
+			</button>
 		</div>
 		<hr>
 	

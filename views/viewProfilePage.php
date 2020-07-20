@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Visit</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- 	<link rel="stylesheet" type="text/css" href="profilepage/main.css">
  --></head>
 <body>
@@ -11,6 +13,10 @@
 	
 	ob_start();
 	session_start();
+	if (!isset($_SESSION['id'])){
+	    header("Location: ../index.php");
+	    exit();
+	}
 
 	include_once '../controller/userApi/visitProfile.php';
 ?>
@@ -18,7 +24,7 @@
 <!-- display the information in HTML -->
 <div>
 	<button class="homebtn" type="button">
-		<a href="newsfeed.php?user_id=<?php echo $_GET['user_id']?>">Back to feed</a>
+		<a href="newsfeed.php">Back to feed</a>
 	</button>
 	<hr>
 	<div class="profile-card">
@@ -38,13 +44,16 @@
 
 		<?php 
 
-		$user_id = $_GET['posted_by'];
-		
-		// $posted_by = $_GET['posted_by'];
-		// $user_id = $_GET['user_id']; //the logged in user for nf
+
+		$user_id = $_GET['user_id'];
+		$followed_by = isset($_SESSION['id']) ? $_SESSION['id'] : "";
+
+
 		//showing followers and followings
 		include_once "../controller/followerApi/getFollowerCount.php";
+		// include_once "../controller/followerApi/getFollowerList.php";
 		include_once "../controller/followerApi/getFollowingCount.php";
+		// include_once "../controller/followerApi/getFollowingList.php";
 		
 		?>
 
@@ -56,21 +65,19 @@
 					<th>Following</th>
 				</tr>
 				<tr>
-					<td><a href="showFollowerList.php?nf=<?php echo $_GET['user_id']?>&user_id=<? echo $_GET['posted_by'];?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
-					<td><a href="showFollowingList.php?nf=<?php echo $_GET['user_id']?>&user_id=<? echo $_GET['posted_by'];?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
+					<td><a href="showFollowerList.php?user_id=<?php echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $follower_count; ?></p></a></td>
+					<td><a href="showFollowingList.php?user_id=<?php echo $user_id;?>"><p style="color: #008CBA;font-style: italic;"><?php echo $following_count; ?></p></a></td>
 				</tr>
 			</table>
 		</div>
 
 
 		<?php
+			if (isset($_SESSION['id'])){
 				include_once "../controller/followerApi/followValidate.php";
 			?>
 
 			<?php
-
-				
-				$followed_by = $_GET['user_id'];
 				if ($condition > 0){ //does this user already follow this account?
 			?>
 				<!-- show unfollow button -->
@@ -86,6 +93,7 @@
 				</button>
 			<?php
 				}
+			}
 		?>
 	</div>
 </div>
@@ -97,7 +105,7 @@
 include_once "../controller/postApi/getPostForOtherUser.php";
 
 //set the user id
-$post->user_id = isset($_GET['posted_by']) ? $_GET['posted_by'] : die();
+$post->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
 //set the result to $rs
 $result = $post->get_all_posts();
@@ -119,7 +127,8 @@ if ($num_rows > 0){
 
 ?>
 	<div class="card">
-		<a class="postlinks" href="viewPost.php?user_id=<?php echo $_GET['user_id']?>		&posted_by=<?php echo $_GET['posted_by'];?>
+		<a class="postlinks" href="viewPost.php?
+				user_id=<?php print_r($post_data['user_id']);?>
 				&post_id=<?php print_r($post_data['post_id']);?>">
 
 				<p><b><?php print_r($post_data['title']);?></b></p>

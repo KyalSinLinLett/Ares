@@ -1,10 +1,10 @@
 <?php 
 
-	// session_start();
+	session_start();
 
-	// header("Allow-Access-Control-Origin: *");
-	// header("Allow-Access-Control-Methods: post");
-	// header("Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Authorization, X-Requested-With");
+	header("Allow-Access-Control-Origin: *");
+	header("Allow-Access-Control-Methods: post");
+	header("Allow-Access-Control-Headers: Allow-Access-Control-Headers, Allow-Access-Control-Methods, Authorization, X-Requested-With");
 
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/Post.php";
@@ -24,7 +24,7 @@
 
 		//execute query - edit
 		if ($post->edit_post()){
-			header("location: ../../views/profile.php?user_id=".$_POST['user_id']);
+			header("location: ../../views/profile.php?user_id=".$_SESSION['id']);
 		} else {
 			echo "post not edited";
 		}

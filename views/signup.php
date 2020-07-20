@@ -4,12 +4,12 @@ session_start();
 
 //makes sure that the user cannot sign up again or log in once they have already logged in
 if (isset($_SESSION['id'])){
-	header('Location: newsfeed.php?user_id='.$_SESSION['id']);
+	header('Location: newsfeed.php?name='.$_SESSION['name']);
 	exit();
 }
 
 ?>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign Up</title>
 <div>
 	<form action="../controller/userApi/createUser.php" method="post">
@@ -80,7 +80,7 @@ if (isset($_SESSION['id'])){
 	</form>
 	<!-- Asking if user already has an account -->
 	<div>
-		<p style="font-style: italic;">Already a member of Ares?<a href="../index.php" class="txt3">
+		<p style="font-style: italic;">Already a member?<a href="../index.php" class="txt3">
 			<b>Log in</b>
 		</a></p>
 	</div>

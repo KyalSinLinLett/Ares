@@ -2,32 +2,30 @@
 <html>
 <head>
 	<title>Delete Account</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 	<div>
 		<form action="../controller/userApi/deleteUser.php" method="post">
 			
 			<b>Delete account</b>
-			<a href="newsfeed.php?user_id=<?php echo $user_id;?>"><b style="font-style: italic;">Cancel</b></a>
+			<a href="newsfeed.php"><b style="font-style: italic;">Cancel</b></a>
 			<p><small>We are sad to see you go</small></p>
 
 			<div>
-				<input type="text" name="user_id" value="<?php echo $user_id;?>" readonly>
-			</div>
-
-			<div>
 				Confirm Email
-				<input type="email" name="email">
+				<input type="email" name="email" required>
 			</div>
 
 			<div>
 				Confirm Password
-				<input type="password" name="password">
+				<input type="password" name="password" required>
 			</div>
 
 			<div>
 				Confirm Password Again
-				<input type="password" name="cpassword">
+				<input type="password" name="cpassword" required>
 			</div>
 
 			<input type="submit" name="submit" value="YES, I'M PERMANENTLY DELETING MY ACCOUNT">

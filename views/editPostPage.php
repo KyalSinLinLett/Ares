@@ -2,15 +2,16 @@
 <html>
 <head>
 	<title>Edit Profile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 	<?php
 	ob_start();
-
+	
 	include("../codesnippets/ifsessionISNOTset.php");
 	include("../controller/postApi/getPostContent.php");
 
-	$user_id = $_GET['user_id'];
 	$title = isset($_GET['title']) ? $_GET['title'] : die();
 	$content = $cont['content'];
 	$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die(); 
@@ -21,23 +22,18 @@
 		<form action="../controller/postApi/editPost.php?post_id=<?php echo $post_id;?>" method="post">
 
 			<b>Edit post</b>
-			<a href="profile.php?user_id=<?php echo $_GET['user_id']?>"><b style="font-style: italic;">Cancel</b></a>
+			<a href="profile.php?user_id=<?php echo $_SESSION['id']?>"><b style="font-style: italic;">Cancel</b></a>
 			<hr>
 			<!-- Title -->
 			<div>
-				<input type="text" name="user_id" value="<?php echo $user_id; ?>" readonly>
-			</div>
-
-			<!-- Title -->
-			<div>
 				<b>Title</b>
-				<input type="text" name="title" value="<?php echo $title; ?>">
+				<input type="text" name="title" maxlength="50" value="<?php echo $title; ?>" required>
 			</div>
 			<br>
 			<!-- Content -->
 			<div>
 				<b>Content</b>
-				<textarea name="content" rows="15" cols="50"><?php echo $content;?></textarea>
+				<textarea name="content" maxlength="10000" rows="15" cols="50" required><?php echo $content;?></textarea>
 			</div>
 			<hr>
 			<!-- Edit button -->

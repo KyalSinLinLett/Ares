@@ -1,8 +1,8 @@
 <?php 
 	
-	// header("Access-Control-Allow-Origin: *");
-	// header("Allow-Control-Allow-Methods: GET");
-	// header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
+	header("Access-Control-Allow-Origin: *");
+	header("Allow-Control-Allow-Methods: GET");
+	header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
 
 	include_once "../dbconnector/Database.php";
 	include_once "../models/Post.php";
@@ -15,7 +15,7 @@
 	$post = new Post($db);
 
 	//set the user id
-	$post->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	$post->user_id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
 
 	//set the result to $rs
 	$result = $post->get_all_posts();

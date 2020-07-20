@@ -1,5 +1,11 @@
 <?php  
 	
+	session_start();
+
+	header("Access-Control-Allow-Origin: *");
+	header("Allow-Control-Allow-Methods: DELETE");
+	header("Access-Control-Allow-Headers: Access-Control-Allow-Headers, Access-Control-Allow-Origin, Authorization, X-Requested-With");
+
 	include_once "../../dbconnector/Database.php";
 	include_once "../../models/Post.php";
 
@@ -12,12 +18,10 @@
 
 	//getting the postid
 	$post->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die();
-	
-	$user_id = $_GET['user_id'];
 
 	//executing
 	if ($post->delete_post()){
-		header('location: ../../views/profile.php?user_id='.$user_id);
+		header('location: ../../views/profile.php?user_id='.$_SESSION['id']);
 	} else {
 		echo "post not deleted";	
 	}

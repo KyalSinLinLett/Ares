@@ -1,8 +1,8 @@
 <?php 
 
-	// header('Access-Control-Allow-Origin: *');
-	// header('Access-Control-Allow-Method: GET');
-	// header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
+	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Method: GET');
+	header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
 
 	//import db and follower class
 	include_once "../dbconnector/Database.php";

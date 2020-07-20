@@ -1,7 +1,7 @@
 <?php
-	
-	session_start();
 
+	session_start();
+	
 	include_once '../dbconnector/Database.php';
 	include_once '../models/User.php';
 
@@ -32,7 +32,12 @@
 			$pwd_from_db = $result['password'];
 
 			//values passed along to session in order to keep state.
-			$_SESSION['id'] = $result['id'];			
+			$_SESSION['id'] = $result['id'];
+			$_SESSION['name'] = $result['name'];
+			$_SESSION['email'] = $result['email'];
+			$_SESSION['profession'] = $result['profession'];
+			$_SESSION['biography'] = $result['biography'];
+			
 
 			//the first condition check is the email we retrieved from the db matches the one in our form. Its redundant, I know, but in this case, this is completely foolproof. 
 
@@ -40,7 +45,7 @@
 
 			if (strcmp($email_from_db, $user->email) == 0){
 				if (password_verify($_POST['password'], $pwd_from_db)){
-					header("location: ../views/profile.php?user_id=".$result['id']);	
+					header("location: ../views/profile.php?user_id=".$_SESSION['id']);	
 				} else {
 					echo "<p>Invalid email, password or user doesn't exist. Try again!</p>";
 					session_destroy();
