@@ -83,6 +83,16 @@ if (isset($_SESSION['id'])){
 						<input class="input100" type="date" name="birthday" placeholder="Birthday">
 						<span class="focus-input100"></span>
 					</div>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Profession is required">
+						<input class="input100" type="text" name="profession" placeholder="Profession">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Biography is required">
+						<input class="input100" type="text" name="biography" placeholder="Biography">
+						<span class="focus-input100"></span>
+					</div>
 					
 
 					<div class="container-login100-form-btn m-t-17">

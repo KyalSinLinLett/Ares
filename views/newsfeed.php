@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ares feed</title>
+	<title>Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="design/main.css">
+<?php
+	include("design/bootstrap.html");
+?>	
+
 </head>
 <body>
-	
+
 <?php  
 
 ob_start();
@@ -21,35 +24,52 @@ session_start();
 	if(isset($_SESSION['id'])){
 
 ?>
+<!-- Navbar -->
+<div>
+	<nav class="mb-4 navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+	  <!-- Brand -->
+	  <a class="navbar-brand" href="newsfeed.php"><img src="img/letterD.gif" alt="Logo" style="width:50px;"><i> d3v-overfl0w</i></a>
 
-	<button class="btn" type="button">
-		<a href="profile.php?user_id=<?php echo $_SESSION['id'];?>">View your profile</a>
-	</button>
+	  <!-- Toggler/collapsibe Button -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
 
-	<button class="btn" type="button">
-		<a onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'>Log out</a>
-	</button>				
-
-	<div class="welcome-card">
+	  <!-- Navbar links -->
+	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="profile.php?user_id=<?php echo $_SESSION['id'];?>"><img src="img/profileDefault.gif" alt="profile" style="width:35px; height: 30px;"> <i>My profile</i></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="about.php"><img src="img/about.gif" alt="profile" style="width:35px; height: 30px;"><i> About</i></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'><img src="img/logout.gif" alt="profile" style="width:40px; height: 30px;">  <i>Log out</i></a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav> 
+</div>
+<!-- /navbar -->
+			
+	<div class="container" style="margin-top: 95px;">
 		<div>
-			<p class="welcome">Welcome to your feed, <i><b><?php
-				echo $_SESSION['name']; ?></b></i></p>
+			<form action="searchResults.php" method="POST" class="form-inline">
+				<select name="search_by" class="browser-default custom-select">
+				  <option>Post</option>
+				  <option>User</option>
+				</select>
+			  <input name="s_query" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+			  <button class="btn btn-outline-info my-2 my-sm-0" name="search" type="submit">Search</button>
+			</form>
 		</div>
-		<div>
-			<p class="site-information">Follow these folks!</p>
-		</div>
-	</div>
 
-	<div>
-		<form action="searchResults.php" method="POST">
-			<select name="search_by">
-				<option>Post</option>
-				<option>User</option>
-			</select>
-			<input type="text" name="s_query" maxlength="50" placeholder="Search anything" required>
-			<input type="submit" name="search" value="Search">
-		</form>
-	</div>
+
+		<div class="mt-3 mb-4">
+			<h4>Welcome, <i><b><?php echo $_SESSION['name']; ?></b></i></h4>
+			<p><i>Check out these posts.</i></p>
+		</div>
 
 	<?php
 
@@ -72,22 +92,53 @@ session_start();
 				);
 
 		?>
-			<div class="card">
-				<?php
-					if (strcmp($post_data['user_id'],$_SESSION['id'])==0){
-						echo "<small>Posted by me</small>";
-					} else {
-				?>
-						<small><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a> made a post.</small>
-				<?php
-					}
-				?>
-				<hr>
-				<a class="post-links" href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
-<!-- 				<p><?php //	print_r($post_data['content']);?></p>
- -->				<small><?php print_r($post_data['posted_at']);?></small>
-				
+
+
+			<div class="media border p-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+			  <img src="img/postprofile.gif" alt="John Doe" class="mr-2 mt-2 rounded-circle" style="width:110px;">
+			  	<div class="media-body">
+			    	<a href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
+			    	<p><i>
+			    		<?php 
+			    			$content = $post_data['content'];
+			    			if (strlen($content) <= 70){
+			    				echo $content;
+			    			} else {
+			    				$content_len_half = strlen($content)/4;
+			    				for ($i = 0; $i <= $content_len_half; $i++){
+			    					echo $content[$i];
+			    				}
+			    				echo "...";
+			    		?>
+			    			<small><a href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>">read more</a></small>
+		
+			    		<?php
+			    			}
+			    		?>	
+			    	</i></p>
+			        <div>	
+			    	    <?php
+			    			if (strcmp($post_data['user_id'],$_SESSION['id'])==0){
+			    		?>
+			    			<small><i>Posted by me on </i></small>
+			    		<?php
+			    			} else {
+			    		?>
+			    				<small><i><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a> posted on </i></small>
+			    		<?php
+			    			}
+			    		?>
+			    		<small><i>
+			    		<?php
+			    	 		$datetime = $post_data['posted_at'];
+			    	 		$date = explode(" ", $datetime);
+			    	 		echo $date[0];
+			    	 	?>
+			    		</i></small>
+			    	</div>
+			 	</div>
 			</div>
+
 		
 		<?php
 
@@ -97,7 +148,7 @@ session_start();
 
 		?>
 
-<?php
+	<?php
  
 } else {
 	header("location: ../index.php");
@@ -106,6 +157,7 @@ session_start();
 ob_flush();
 ?>
 
+</div>
 
 </body>
 </html>

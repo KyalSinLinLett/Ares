@@ -48,7 +48,9 @@
 						 	name = :name,
 						 	password = :password,
 						 	email = :email,
-						 	birthday = :birthday";
+						 	birthday = :birthday,
+						 	profession = :profession,
+						 	biography = :biography";
 
 				//prepare statement
 				$stmt = $this->conn->prepare($query);
@@ -58,8 +60,8 @@
 				$stmt->bindParam(':password', $this->password);
 				$stmt->bindParam(':email', $this->email);
 				$stmt->bindParam(':birthday', $this->birthday);
-				// $stmt->bindParam(':profession', $this->profession);
-				// $stmt->bindParam(':biography', $this->biography);
+				$stmt->bindParam(':profession', $this->profession);
+				$stmt->bindParam(':biography', $this->biography);
 
 				//execute query
 				if ($stmt->execute()){

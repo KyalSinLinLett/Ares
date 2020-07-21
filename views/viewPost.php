@@ -3,9 +3,10 @@
 <head>
 <title>View Post</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- <link rel="stylesheet" type="text/css" href="profilepage/main.css">
- --></head>
+<?php
+	include("design/bootstrap.html");
+?>	
+</head>
 <body>
 
 <?php
@@ -26,209 +27,245 @@ include_once "../controller/likeApi/getLikes.php";
 
 ?>
 
-<button class="homebtn" type="button">
-<a href="newsfeed.php?name=<?php echo $_SESSION['name'];?>">Go to feed</a>
-</button>
+<!-- Navbar -->
+<div>
+	<nav class="mb-5 navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+	  <!-- Brand -->
+	  <a class="navbar-brand" href="newsfeed.php"><img src="img/letterD.gif" alt="Logo" style="width:50px;"><i> d3v-overfl0w</i></a>
 
-<br>
-<hr>
-<!-- show post content -->
+	  <!-- Toggler/collapsibe Button -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
 
-<div class="card">
-<p><b><?php print_r($post_data['title']);?></b></p>
-<p><?php print_r($post_data['content']);?></p>
-<p><?php print_r($post_data['posted_at']);?></p>
-<p>Likes: <?php echo $likecount; ?></p>
-
-
-<!-- Profile links based on logged in user -->
-<?php
-	//if the post author is the logged in user 
-	if (isset($_SESSION['id'])){
-		if (strcmp($_SESSION['id'], $post_data['posted_by']) == 0){
-
-?>
-
-	<p>Author: <a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($post_data['author']);?></a></p>
-
-<?php
-		
-	} else {
-?>
-
-	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>
-
-<?php
-		}
-	} else {
-?>
-
-	<p>Author: <a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>	
-
-<?php
-	}
-?>
-<hr>
-<!-- likes -->
-<?php 
-	
-	//is user already logged in?
-	if (isset($_SESSION['id'])){
-
-		$id = $_SESSION['id'];
-
-		// is this post already been liked by user?
-		include_once "../controller/check_liked.php";
-		if ($condition > 0){ //means already liked
-
-		?>
-			<!-- Show unlike button -->
-			<button class="btn" type="button">
-				<a href="../controller/likeApi/unlike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Unlike</a>
-			</button>
-			
-		<?php
-		} else {
-		?>	
-			<!-- show like button -->
-			<button class="btn" type="button">
-				<a href="../controller/likeApi/addLike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>">Like</a>
-			</button>
-			
-		<?php
-		}	
-	}	
-
-?>
-
-<!-- show edit, delete buttons if user is logged in -->
-<?php 
-
-	if (isset($_SESSION['id'])){
-		if ($post_data['posted_by'] == $_SESSION['id']){
-?>
-	<hr>
-	<button class="btn" type="button">
-		<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>">Edit</a>
-	</button>
-	<button class="btn" type="button">
-		<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>">Delete</a>
-	</button>
-
-<?php
-
-		}
-	}
-
-?>
-
+	  <!-- Navbar links -->
+	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+	    <ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="profile.php?user_id=<?php echo $_SESSION['id'];?>"><img src="img/profileDefault.gif" alt="profile" style="width:35px; height: 30px;"> <i>My profile</i></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="about.php"><img src="img/about.gif" alt="profile" style="width:35px; height: 30px;"><i> About</i></a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'><img src="img/logout.gif" alt="profile" style="width:40px; height: 30px;">  <i>Log out</i></a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav> 
 </div>
-<hr>
+<!-- /navbar -->
 
-<!-- Adding comments -->
+<!-- show post content -->
+<div class="container" style="margin-top: 95px;">
+	<div class="card p-5" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+		<article>
+			<h2><?php print_r($post_data['title']);?></h2>
+			<p><?php print_r($post_data['content']);?></p>
+		</article>
 
-<?php
-
-if (isset($_SESSION['id'])){
-
-?>
-	<hr>
-	<div class="card">
-		<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
-			<input type="text" name="cmt" placeholder="Add a comment (Max: 50)" required>
-			<input type="submit" name="submit" value="Add" required>
-		</form>
-	</div>
-
-<?php
-
-}
-
-?>
-
-<!-- Getting comments -->
-
-<?php
-
-include_once "../controller/cmtApi/getComments.php";
-
-$num_rows = $result->rowCount();
-
-if ($num_rows > 0){
-
-	while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
-		extract($rs);
-
-		$cmt_data = array(
-			"cmt_id" => $rs['cmt_id'],
-			"comment" => $rs['comment'],
-			"posted_at" => $rs['posted_at'],
-			"posted_by" => $rs['posted_by'],
-			"author" => $rs['name']
-		);
-
-?>
-	<hr>
-	<div class="comment-card">
-		<p>> <?php print_r($cmt_data['comment']);?></p>
-		<p><?php print_r($cmt_data['posted_at']);?></p>
-		
-		
-				
+		<small><i>
 		<?php
+	 		$datetime = $post_data['posted_at'];
+	 		$date = explode(" ", $datetime);
+	 		echo "Posted on ".$date[0];
+	 	?>
+	 	<p>Likes: <?php echo $likecount; ?></p>
+		</i></small>
+		
 
+		<!-- Profile links based on logged in user -->
+		<?php
+			//if the post author is the logged in user 
 			if (isset($_SESSION['id'])){
-				if (strcmp($_SESSION['id'], $cmt_data['posted_by']) == 0){
-
+				if (strcmp($_SESSION['id'], $post_data['posted_by']) == 0){
 
 		?>
 
-				<a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><p><?php print_r($cmt_data['author'])?></p></a>
-
-				<button class="btn" type="button">
-				<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php echo $_SESSION['id']; ?>">Delete</a>
-				</button>
-
-				<button class="btn" type="button">
-				<a href="editCommentPage.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>">Edit</a>
-				</button>
+			<p><i>Author: </i><a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($post_data['author']);?></a></p>
 
 		<?php
-
-				} else {
-
+				
+			} else {
 		?>
-			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>
-			 
 
-			
+			<p><i>Author: </i><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>
+
 		<?php
 				}
 			} else {
 		?>
 
-			<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><p><?php print_r($cmt_data['author']);?></p></a>	
+			<p><i>Author: </i><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['posted_by'])?>"><?php print_r($post_data['author']);?></a></p>	
 
 		<?php
-
 			}
-
 		?>
-			
+		<hr>
+		<div class="row pl-3">
+				<!-- likes -->
+				<?php 
+					//is user already logged in?
+					if (isset($_SESSION['id'])){
+
+						$id = $_SESSION['id'];
+
+						// is this post already been liked by user?
+						include_once "../controller/check_liked.php";
+						if ($condition > 0){ //means already liked
+
+						?>
+							<!-- Show unlike button -->
+							<a style="color: red;" href="../controller/likeApi/unlike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/unlike.png" class="mr-2 mt-2" style="width:35px;"></a>
+							
+						<?php
+						} else {
+						?>	
+							<!-- show like button -->
+							<a href="../controller/likeApi/addLike.php?id=<?php echo $id;?>&user_id=<?php print_r($post_data['posted_by'])?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/like.png" class="mr-2 mt-2" style="width:35px;"></a>
+							
+						<?php
+						}	
+					}	
+
+				?>
+
+				<!-- show edit, delete buttons if user is logged in -->
+				<?php 
+
+					if (isset($_SESSION['id'])){
+						if ($post_data['posted_by'] == $_SESSION['id']){
+
+				?>
+					<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
+
+					<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+
+				<?php
+
+						}
+					}
+
+				?>
+		</div>
 	</div>
 
-<?php
+	<!-- Adding comments -->
+
+	<?php
+
+	if (isset($_SESSION['id'])){
+
+	?>
+		<hr>
+		<div class="card">
+			<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
+				<input type="text" name="cmt" placeholder="Add a comment (Max: 50)" required>
+				<input type="submit" name="submit" value="Add" required>
+			</form>
+		</div>
+
+	<?php
 
 	}
 
-} 
+	?>
 
-?>
+	<!-- Getting comments -->
 
-<?php 
-ob_flush();
-?>
+	<?php
 
+	include_once "../controller/cmtApi/getComments.php";
+
+	$num_rows = $result->rowCount();
+
+	if ($num_rows > 0){
+
+		while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
+			extract($rs);
+
+			$cmt_data = array(
+				"cmt_id" => $rs['cmt_id'],
+				"comment" => $rs['comment'],
+				"posted_at" => $rs['posted_at'],
+				"posted_by" => $rs['posted_by'],
+				"author" => $rs['name']
+			);
+
+	?>
+		<div class="card p-4 mt-3 mb-4" style="border-radius: .5rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+			
+			<div class="row">
+				<div class="col-11">
+					<p><img src="img/comments.png" style="width: 30px;">&nbsp&nbsp<?php print_r($cmt_data['comment']);?></p>		
+					<?php
+
+						if (isset($_SESSION['id'])){
+							if (strcmp($_SESSION['id'], $cmt_data['posted_by']) == 0){
+					?>
+
+							<a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($cmt_data['author'])?></a>		
+							<small><i>
+							<?php
+						 		$datetime = $cmt_data['posted_at'];
+						 		$date = explode(" ", $datetime);
+						 		echo "posted on ".$date[0];
+						 	?>
+							</i></small>
+
+					<?php
+							} else {
+					?>
+
+						<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>
+							<small><i>
+							<?php
+						 		$datetime = $cmt_data['posted_at'];
+						 		$date = explode(" ", $datetime);
+						 		echo "posted on ".$date[0];
+						 	?>
+							</i></small>
+				
+					<?php
+							}
+						} else {
+					?>
+
+						<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>	
+							<small><i>
+							<?php
+						 		$datetime = $cmt_data['posted_at'];
+						 		$date = explode(" ", $datetime);
+						 		echo "posted on ".$date[0];
+						 	?>
+							</i></small>
+
+					<?php
+						}
+					?>
+
+				</div>
+
+				<div class="col-1">	
+					<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php echo $_SESSION['id']; ?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
+
+					<a href="editCommentPage.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+				</div>
+			
+			</div>	
+		</div>
+
+	<?php
+		}
+	} 
+	?>
+	
+	<?php 
+	
+	ob_flush();
+	
+	?>
+</div>
 
 </body>
 </html>
