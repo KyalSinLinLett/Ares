@@ -148,24 +148,20 @@ include_once "../controller/likeApi/getLikes.php";
 
 				?>
 		</div>
+		<hr>
+		<!-- Adding comments -->
+
+		<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
+			<input class="form-control mr-sm-2 mb-2" type="text" name="cmt" placeholder="Add a comment (Max: 50)" required>
+			<button class="btn btn-outline-info my-2 my-sm-0" name="submit" type="submit">Comment</button>
+		</form>
 	</div>
 
-	<!-- Adding comments -->
+	
 
 	<?php
 
 	if (isset($_SESSION['id'])){
-
-	?>
-		<hr>
-		<div class="card">
-			<form action="../controller/cmtApi/addComment.php?user_id=<?php echo $_SESSION['id']; ?>&post_id=<?php print_r($post_data['post_id']);?>" method="POST">
-				<input type="text" name="cmt" placeholder="Add a comment (Max: 50)" required>
-				<input type="submit" name="submit" value="Add" required>
-			</form>
-		</div>
-
-	<?php
 
 	}
 
@@ -193,66 +189,67 @@ include_once "../controller/likeApi/getLikes.php";
 			);
 
 	?>
+		
 		<div class="card p-4 mt-3 mb-4" style="border-radius: .5rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			
-			<div class="row">
-				<div class="col-11">
-					<p><img src="img/comments.png" style="width: 30px;">&nbsp&nbsp<?php print_r($cmt_data['comment']);?></p>		
-					<?php
+			<p><img src="img/comments.png" style="width: 30px;">&nbsp&nbsp<?php print_r($cmt_data['comment']);?></p>		
+					
+				<?php
 
-						if (isset($_SESSION['id'])){
-							if (strcmp($_SESSION['id'], $cmt_data['posted_by']) == 0){
-					?>
+					if (isset($_SESSION['id'])){
+						if (strcmp($_SESSION['id'], $cmt_data['posted_by']) == 0){
+				?>
 
-							<a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($cmt_data['author'])?></a>		
-							<small><i>
-							<?php
-						 		$datetime = $cmt_data['posted_at'];
-						 		$date = explode(" ", $datetime);
-						 		echo "posted on ".$date[0];
-						 	?>
-							</i></small>
+						<a class="profilelinks" href="profile.php?user_id=<?php echo $_SESSION['id']?>"><?php print_r($cmt_data['author'])?></a>		
+						<small><i>
+						<?php
+					 		$datetime = $cmt_data['posted_at'];
+					 		$date = explode(" ", $datetime);
+					 		echo "posted on ".$date[0];
+					 	?>
+						</i></small>
+						
+						<hr>
 
-					<?php
-							} else {
-					?>
+						<div class="row pl-3">
 
-						<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>
-							<small><i>
-							<?php
-						 		$datetime = $cmt_data['posted_at'];
-						 		$date = explode(" ", $datetime);
-						 		echo "posted on ".$date[0];
-						 	?>
-							</i></small>
-				
-					<?php
-							}
+							<a href="editCommentPage.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
+
+							<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php echo $_SESSION['id']; ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+						
+						</div>
+						
+
+				<?php
 						} else {
-					?>
+				?>
 
-						<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>	
-							<small><i>
-							<?php
-						 		$datetime = $cmt_data['posted_at'];
-						 		$date = explode(" ", $datetime);
-						 		echo "posted on ".$date[0];
-						 	?>
-							</i></small>
-
-					<?php
-						}
-					?>
-
-				</div>
-
-				<div class="col-1">	
-					<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/cmtApi/deleteComment.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id'])?>&user_id=<?php echo $_SESSION['id']; ?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
-
-					<a href="editCommentPage.php?post_id=<?php print_r($post_data['post_id']);?>&cmt_id=<?php print_r($cmt_data['cmt_id']);?>&cmt=<?php print_r($cmt_data['comment']);?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
-				</div>
+					<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>
+						<small><i>
+						<?php
+					 		$datetime = $cmt_data['posted_at'];
+					 		$date = explode(" ", $datetime);
+					 		echo "posted on ".$date[0];
+					 	?>
+						</i></small>
 			
-			</div>	
+				<?php
+						}
+					} else {
+				?>
+
+					<a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($cmt_data['posted_by'])?>"><?php print_r($cmt_data['author']);?></a>	
+						<small><i>
+						<?php
+					 		$datetime = $cmt_data['posted_at'];
+					 		$date = explode(" ", $datetime);
+					 		echo "posted on ".$date[0];
+					 	?>
+						</i></small>
+
+				<?php
+					}
+				?>					
 		</div>
 
 	<?php
