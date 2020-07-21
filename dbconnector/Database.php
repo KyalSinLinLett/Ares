@@ -3,12 +3,12 @@
 class Database{
 	//DB Params
 	private $host = "localhost";
-	//private $db_name = "id14323272_ares";
-	private $db_name = "Ares2";
-	//private $username = "id14323272_root";
-	private $username = "root";
-	//private $password = "1wzCAcBLT|2n*mp/";
-	private $password = "root";
+	private $db_name = "id14323272_ares";
+	//private $db_name = "Ares2";
+	private $username = "id14323272_root";
+	//private $username = "root";
+	private $password = "1wzCAcBLT|2n*mp/";
+	//private $password = "root";
 	private $conn;
 
 	//DB connect
