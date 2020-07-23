@@ -53,6 +53,7 @@ session_start();
 </div>
 <!-- /navbar -->
 			
+	<!-- search -->
 	<div class="container" style="margin-top: 95px;">
 		<div>
 			<form action="searchResults.php" method="POST" class="form-inline">
@@ -64,7 +65,7 @@ session_start();
 			  <button class="btn btn-outline-info my-2 my-sm-0" name="search" type="submit">Search</button>
 			</form>
 		</div>
-
+		<!-- /search -->
 
 		<div class="mt-3 mb-4">
 			<h4>Welcome, <i><b><?php echo $_SESSION['name']; ?></b></i></h4>

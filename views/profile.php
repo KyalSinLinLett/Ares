@@ -55,7 +55,7 @@
 	<div class="card pl-4 pr-4 pt-4 pb-1" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 
 		<div>
-			<h1><?php echo $name; ?><a href="editprofile.php?name=<?php echo $name;?>&birthday=<?php echo $birthday;?>&profession=<?php echo $profession;?>&biography=<?php echo $biography;?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="float: right; width:35px;"></a></h1>	
+			<h1><?php echo $name; ?><a href="editprofile.php"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="float: right; width:35px;"></a></h1>	
 			<p><i><?php echo $biography; ?></i></p>
 		</div>
 		

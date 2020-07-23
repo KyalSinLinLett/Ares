@@ -58,7 +58,7 @@ include_once "../controller/likeApi/getLikes.php";
 
 <!-- show post content -->
 <div class="container" style="margin-top: 95px;">
-	<div class="card p-5" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+	<div class="card p-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 		<article>
 			<h2><?php print_r($post_data['title']);?></h2>
 			<p><?php print_r($post_data['content']);?></p>
@@ -139,7 +139,7 @@ include_once "../controller/likeApi/getLikes.php";
 				?>
 					<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
 
-					<a onClick="javascript: return confirm('Please comfirm deletion');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+					<a onClick="javascript: return confirm('Confirm delete');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
 
 				<?php
 

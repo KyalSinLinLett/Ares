@@ -43,9 +43,10 @@
 		<article>
 			<p style="font-family: ubuntu;">> d3v-overfl0w is a <i>small</i> and simple social network for sharing thoughts and knowledge.</p>
 			<p style="font-family: ubuntu;">> It's mainly built with pure <i>PHP</i> without any frameworks and designed with Bootstrap 4.</p>	
+			<p style="font-family: ubuntu;">> This site doesn't store cookies and your session is ended once you've logged out.</p>	
 			<p style="font-family: ubuntu;">> Hope you enjoy it!</p>		
 		</article>
-		<a target="_blank" href="https://github.com/KyalSinLinLett"><img style="width: 40px;" src="img/githublogo.png"></a>
+		<a target="_blank" href="https://github.com/KyalSinLinLett"><img style="width: 40px;" src="img/githublogo.png"></a> <small>< Check out my GitHub</small>
 	</div>
 <?php
 	ob_flush();
