@@ -56,7 +56,22 @@
 	<!-- card -->
 	<div class="card p-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 
-		<div>
+		<?php 
+			if ($profilepic != null){
+		?>
+				<div>
+					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+				</div>
+		<?php
+			} else {
+		?>		
+				<div>
+					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+				</div>
+		<?php
+			}
+		?>
+		<div class="ml-3 mt-4">
 			<h1><?php echo $name; ?></h1>	
 			<p><i><?php echo $biography; ?></i></p>
 		</div>
@@ -186,6 +201,20 @@
 			 	?>
 				</i></small>
 				<br>
+				<?php
+					include_once "../controller/likeApi/getLikesNF.php";
+
+					$like->post_id = $post_data['post_id'];
+
+					if ($likes = $like->get_likes()){
+						$likecount = $likes['count(user_id)'];
+					} else {
+						echo "Cannot get post likes. Try again.";
+					}
+				?>
+
+				<small><i>Likes: <?php echo $likecount;?></i></small>
+
 			</div>
 		</div>
 		<hr>

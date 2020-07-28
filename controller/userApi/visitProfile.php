@@ -24,5 +24,6 @@
 	$email = $user['email'];
 	$birthday = $user['birthday'];
 	$profession = $user['profession'];
-	$biography = $user['biography'];	
+	$biography = $user['biography'];
+	$profilepic = $user['profilepic'];	
 ?>

@@ -15,11 +15,11 @@
 	$like = new Like($db);
 
 	//user_id of the post owner
-	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	$user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die(); //id of post author -> so can head back to the post after liked
 
-	$like->user_id = isset($_GET['id']) ? $_GET['id'] : die();
-	
-	$like->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die();
+	$like->user_id = isset($_GET['id']) ? $_GET['id'] : die(); // id of the user liking the post
+	 
+	$like->post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die(); // post id
 	
 	if ($like->unlike()){
 		echo "post unliked";

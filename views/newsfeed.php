@@ -73,7 +73,6 @@ session_start();
 		</div>
 
 	<?php
-
 		include_once "../controller/postApi/getAllPostsNF.php";
 
 		$num_rows = $result->rowCount();
@@ -89,18 +88,65 @@ session_start();
 					"content" => $rs['content'],
 					"posted_at" => $rs['posted_at'],
 					"name" => $rs['name'],
-					"user_id" => $rs['id']
+					"user_id" => $rs['id'],
+					"profilepic" => $rs['profilepic']
 				);
+
+				include_once "../controller/likeApi/getLikesNF.php";
+
+				$like->post_id = $post_data['post_id'];
+
+				if ($likes = $like->get_likes()){
+					$likecount = $likes['count(user_id)'];
+				} else {
+					echo "Cannot get post likes. Try again.";
+				}
 
 		?>
 
-
 			<div class="media border p-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
-			  <img src="img/postprofile.gif" alt="John Doe" class="mr-2 mt-2 rounded-circle" style="width:110px;">
+			  
+			  <?php
+			  		if ($post_data['profilepic'] != null){
+			  ?>
+
+			  		<?php
+			  			if ($_SESSION['id'] == $post_data['user_id']){
+			  		?>
+			  				<a href="profile.php?user_id=<?php print_r($post_data['user_id'])?>"><img src="../images/profilepic/<?php echo $post_data['profilepic']?>" alt="<?php echo $post_data['name']?>" style="width: 50px; height: 50px; border-radius: 5rem; margin-right: 15px;"></a>	
+			  		<?php
+			  			} else {
+			  		?>	
+			  				<a href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><img src="../images/profilepic/<?php echo $post_data['profilepic']?>" alt="<?php echo $post_data['name']?>" style="width: 50px; height: 50px; border-radius: 5rem; margin-right: 15px;"></a>		
+			  		<?php
+			  			}
+			  		?>
+			  			
+			  <?php
+			  		} else {
+			  ?>
+
+			  			<?php
+			  				if ($_SESSION['id'] == $post_data['user_id']){
+			  			?>
+			  					<a href="profile.php?user_id=<?php print_r($post_data['user_id'])?>"><img src="img/nfprofile.gif" alt="<?php echo $post_data['name']?>" style="width: 50px; height: 50px; border-radius: 5rem; margin-right: 15px;"></a>	
+			  			<?php
+			  				} else {
+			  			?>	
+			  					<a href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><img src="img/nfprofile.gif" alt="<?php echo $post_data['name']?>" style="width: 50px; height: 50px; border-radius: 5rem; margin-right: 15px;"></a>		
+			  			<?php
+			  				}
+			  			?>
+			  <?php
+			  		}
+			  ?>
+
+			  
 			  	<div class="media-body">
 			    	<a href="viewPost.php?post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
 			    	<p><i>
 			    		<?php 
+
 			    			$content = $post_data['content'];
 			    			if (strlen($content) <= 70){
 			    				echo $content;
@@ -125,7 +171,7 @@ session_start();
 			    		<?php
 			    			} else {
 			    		?>
-			    				<small><i><a class="profilelinks" href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a> posted on </i></small>
+			    				<small><i><a href="viewProfilePage.php?user_id=<?php print_r($post_data['user_id'])?>"><?php print_r($post_data['name']);?></a> posted on </i></small>
 			    		<?php
 			    			}
 			    		?>
@@ -137,6 +183,7 @@ session_start();
 			    	 	?>
 			    		</i></small>
 			    	</div>
+			    	<small>Likes: <?php echo $likecount?></small>
 			 	</div>
 			</div>
 

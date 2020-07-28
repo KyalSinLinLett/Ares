@@ -14,6 +14,7 @@
 		public $profession;
 		public $biography;
 		public $created_at;
+		public $profilepic;
 
 		//constructor
 		public function __construct($db){
@@ -52,6 +53,7 @@
 						 	profession = :profession,
 						 	biography = :biography";
 
+
 				//prepare statement
 				$stmt = $this->conn->prepare($query);
 
@@ -81,7 +83,7 @@
 		// function to get a user (R)
 		public function get_user(){
 			//create query
-			$query = "SELECT name, email, birthday, profession, biography 
+			$query = "SELECT name, email, birthday, profession, biography, profilepic 
 
 					  FROM ".$this->table.' 
 
@@ -128,13 +130,32 @@
 			$stmt->bindParam(":birthday", $this->birthday);
 			$stmt->bindParam(":profession", $this->profession);
 			$stmt->bindParam(":biography", $this->biography);
-			
 
 			if ($stmt->execute()){
 				return true;
 			} 
 
 			//print error message
+			printf("Error: %s\n", $stmt->error);
+			return false;
+		}
+
+		public function change_profile_pic(){
+			//create query
+			$query = "UPDATE " .$this->table. " SET profilepic = :profilepic WHERE id = :id";
+
+			//create stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind params
+			$stmt->bindParam(":profilepic", $this->profilepic);
+			$stmt->bindParam(":id", $this->id);
+
+			//execute statement
+			if ($stmt->execute()){
+				return true;
+			}
+
 			printf("Error: %s\n", $stmt->error);
 			return false;
 		}
@@ -162,8 +183,6 @@
 			printf("Error: %s\n", $stmt->error);
 			return false;
 		}
-
-		
 
 		public function user_validation(){
 			//create query

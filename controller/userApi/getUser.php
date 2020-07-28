@@ -26,5 +26,6 @@
 	$birthday = $user['birthday'];
 	$profession = $user['profession'];
 	$biography = $user['biography'];
+	$profilepic = $user['profilepic'];
 	
 ?>

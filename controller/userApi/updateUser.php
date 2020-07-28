@@ -20,7 +20,7 @@
 	if (isset($_POST['submit'])){
 		//get user id
 		$user->id = isset($_SESSION['id']) ? $_SESSION['id'] : die();
-
+		
 		//updated details set to the user attributes
 		$user->name = $_POST['name'];
 		$user->birthday = $_POST['birthday'];
@@ -30,9 +30,8 @@
 		if ($user->update_user()){
 				
 			$_SESSION['name'] = $_POST['name'];
-			$_SESSION['email'] = $_POST['email'];
 			$_SESSION['profession'] = $_POST['profession'];
-			$_SESSION['biography'] = $_POST['biography'];
+			$_SESSION['biography'] = $_POST['bio'];
 
 			header('Location: ../../views/profile.php?user_id='.$_SESSION['id']);
 

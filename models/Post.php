@@ -11,6 +11,7 @@
 		public $content;
 		public $user_id;
 		public $posted_at;
+		public $postpics;
 
 		// constructor
 		public function __construct($db){
@@ -166,7 +167,7 @@
 			$query = "
 
 			SELECT 
-				".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id 
+				".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id, ".$USERTABLE.".profilepic 
 
 			FROM ".$this->table." 
 

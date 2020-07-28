@@ -7,6 +7,7 @@ include("../codesnippets/ifsessionISNOTset.php");
 ?>
 <title>Edit profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <!-- Navbar -->
 <div>
 	<nav class="mb-4 navbar navbar-expand-md bg-dark navbar-dark fixed-top">
@@ -38,21 +39,38 @@ include("../codesnippets/ifsessionISNOTset.php");
 
 <div class="container" style="margin-top: 95px;">
 	<div class="card p-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
-		<form action="../controller/userApi/updateUser.php" method="post">
+		
+		<?php
+			include_once "../controller/userApi/getUser.php";	
+		
+			if ($profilepic != null){
+		?>
+				<div class="row ml-2">
+					<img src="../images/profilepic/<?php echo $profilepic;?>" style="width: 100px; height: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);border-radius: 5rem;">
+				</div>
+		<?php
+			} else {
+		?>
+				<div class="row ml-2">
+					<img src="img/nfprofile.gif" style="width: 100px; height: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);border-radius: 5rem;">
+				</div>
+		<?php
+			}
+		?>
 
-			<?php
+		<a href="changePP.php">Change profile pic</a>
+		
+		<form action="../controller/userApi/updateUser.php" method="post" enctype="multipart/form-data"	>
 
-				include_once "../controller/userApi/getUser.php";
-				
-			?>
-
+		
 			<!-- edit profile text -->
 			<b>Edit profile</b>
 			<a href="newsfeed.php"><b style="font-style: italic;">Cancel</b></a>
 			<hr>
+
 			<!-- name text and input box -->
 			<div>
-				<b>Name</b>
+				<b class="pt-5">Name</b>
 				<input class="form-control mr-sm-2 mb-2" type="text" name="name" value="<?php echo $name; ?>" required>
 			</div>
 
@@ -73,6 +91,7 @@ include("../codesnippets/ifsessionISNOTset.php");
 				<b>Add bio</b>
 				<textarea class="md-textarea form-control mb-2"name="bio" rows="5"  placeholder="A sentence describing yourself." required><?php echo $biography;?></textarea>
 			</div>
+
 			<hr>
 			<!-- update button -->
 			<div>

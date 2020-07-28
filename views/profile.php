@@ -53,14 +53,27 @@
 <div class="container" style="margin-top: 95px;">
 	<!-- card -->
 	<div class="card pl-4 pr-4 pt-4 pb-1" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
-
-		<div>
+			<?php 
+			if ($profilepic != null){
+		?>
+				<div>
+					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+				</div>
+		<?php
+			} else {
+		?>		
+				<div>
+					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+				</div>
+		<?php
+			}
+		?>
+		
+		<div class="ml-3 mt-4">
 			<h1><?php echo $name; ?><a href="editprofile.php"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="float: right; width:35px;"></a></h1>	
 			<p><i><?php echo $biography; ?></i></p>
-		</div>
-		
+		</div>		
 		<hr>
-		
 		<div>
 			<p><i><img src="img/profession.gif" alt="profession" class="mr-2 mt-2 rounded-circle" style="width:60px;"><?php echo $profession; ?></i></p>
 			<p><i><img src="img/birthday.gif" alt="birthday" class="mr-2 mt-2 rounded-circle" style="width:60px; height: 55px;"><?php echo $birthday; ?></i></p>
@@ -155,6 +168,21 @@
 				</i></small>
 				<br>
 
+				<?php
+					include_once "../controller/likeApi/getLikesNF.php";
+
+					$like->post_id = $post_data['post_id'];
+
+					if ($likes = $like->get_likes()){
+						$likecount = $likes['count(user_id)'];
+					} else {
+						echo "Cannot get post likes. Try again.";
+					}
+				?>
+
+				<small><i>Likes: <?php echo $likecount;?></i></small>
+
+				<br>
 				<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
 
 				<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
