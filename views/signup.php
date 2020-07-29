@@ -70,12 +70,12 @@ if (isset($_SESSION['id'])){
 					</div>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="password" placeholder="Password">
+						<input class="input100" type="password" minlength="12" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="cpassword" placeholder="Confirm password">
+						<input class="input100" type="password" minlength="12" name="cpassword" placeholder="Confirm password">
 						<span class="focus-input100"></span>
 					</div>
 					

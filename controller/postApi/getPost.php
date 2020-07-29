@@ -26,7 +26,8 @@
 			"title" => $rs['title'],
 			"content" => $rs['content'],
 			"posted_at" => $rs['posted_at'],
-			"posted_by" => $rs['user_id']
+			"posted_by" => $rs['user_id'],
+			"postpics" => $rs['postpics']
 		);
 
 	} else {

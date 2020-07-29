@@ -36,7 +36,7 @@
 			header("location: ../../views/editprofile.php");
 		} else {
 			"cannot change profile pic";
-		}
+		}	
 	}
 	
 	

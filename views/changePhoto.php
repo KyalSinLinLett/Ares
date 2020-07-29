@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Change profile</title>
+<title>Change photo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php
 	include("design/bootstrap.html");
@@ -16,6 +16,8 @@
 	    header('Location: ../index.php');
 	    exit();
 	}
+	include("../controller/postApi/getPostContent.php");
+
 
 ?>
 
@@ -48,39 +50,28 @@
 </div>
 <!-- /navbar -->
 
-<!-- Show user info -->
 <div class="container" style="margin-top: 95px;">
 	<!-- card -->
 	<div class="card p-5" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
-		<a href="editprofile.php"><b style="font-style: italic;">Cancel</b></a>
-		<p>Current profile pic</p>
+		
+		<p>Change photo  <a href="editPostPage.php?title=<?php echo $_GET['title']; ?>&post_id=<?php echo $_GET['post_id'];?>"><b style="font-style: italic;">Cancel</b></a></p>
 		
 		<hr>
 
-		<?php
-			include_once "../controller/userApi/getUser.php";	
-		
-			if ($profilepic != null){
-		?>
-				<div class="row ml-2 mb-3">
-					<img src="../images/profilepic/<?php echo $profilepic;?>" width="200" height="200" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);border-radius: 7rem;">
-				</div>
-		<?php
-			} else {
-		?>
-				<div class="row ml-2 mb-3">
-					<img src="img/nfprofile.gif" width="200" height="200" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);border-radius: 7rem;">
-				</div>
-		<?php
-			}
-		?>
-
-		<hr>
-
-		<form action="../controller/userApi/updateProfilePic.php" method="POST" enctype="multipart/form-data">
+		<form action="../controller/postApi/changePic.php?title=<?php echo $_GET['title'];?>&post_id=<?php echo $_GET['post_id'];?>" method="POST" enctype="multipart/form-data">
 			
-			<input name="profilepic" type="file" accept="image/*" required>
-			
+			<?php
+				$postpics = $cont['postpics'];
+				if ($postpics != null){
+			?>	
+				<b>Current photo</b><br>
+				<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php echo $postpics; ?>" width="250">
+			<?php
+				}
+			?>
+			<hr>
+			<b>Select new photo</b>
+			<input class="mt-2" name="postpics" type="file" accept="image/*" required>
 			<div class="mt-3 mb-2">
 				<button class="btn btn-success my-2 my-sm-0" name="submit" type="submit">Change</button>
  			</div>

@@ -27,7 +27,8 @@
 					  SET
 					  	title = :title, 
 					  	content = :content,
-					  	user_id = :user_id";
+					  	user_id = :user_id,
+					  	postpics = :postpics";
 
 			//prepared statements
 			$stmt = $this->conn->prepare($query);
@@ -36,6 +37,7 @@
 			$stmt->bindParam(':title', $this->title);
 			$stmt->bindParam(':content', $this->content);
 			$stmt->bindParam(':user_id', $this->user_id);
+			$stmt->bindParam(':postpics', $this->postpics);
 			
 			// execute query
 			if ($stmt->execute()){
@@ -84,7 +86,7 @@
 
 			//create query
 			$query = "SELECT 
-						".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$this->table.".user_id, ".$USERTABLE.".name
+						".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$this->table.".user_id, ".$this->table.".postpics, ".$USERTABLE.".name
 
 					  FROM 
 					  	".$this->table."
@@ -167,7 +169,7 @@
 			$query = "
 
 			SELECT 
-				".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$USERTABLE.".name, ".$USERTABLE.".id, ".$USERTABLE.".profilepic 
+				".$this->table.".post_id, ".$this->table.".title, ".$this->table.".content, ".$this->table.".posted_at, ".$this->table.".postpics, ".$USERTABLE.".name, ".$USERTABLE.".id, ".$USERTABLE.".profilepic 
 
 			FROM ".$this->table." 
 
@@ -190,7 +192,7 @@
 
 		public function get_content(){
 			//query
-			$query = "SELECT content FROM ".$this->table." WHERE post_id = :post_id";
+			$query = "SELECT content, postpics FROM ".$this->table." WHERE post_id = :post_id";
 
 			//stmt
 			$stmt = $this->conn->prepare($query);
@@ -204,6 +206,60 @@
 			return $stmt;
 
 		}
+
+		public function remove_pic(){
+			//query
+			$query = "UPDATE ".$this->table." SET postpics = null WHERE post_id = :post_id";
+
+			//stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':post_id', $this->post_id);
+
+			//execute
+			$stmt->execute();
+
+			return $stmt;
+
+		}
+
+		public function add_pic(){
+			//query
+			$query = "UPDATE ".$this->table." SET postpics = :postpics WHERE post_id = :post_id";
+
+			//stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':post_id', $this->post_id);
+			$stmt->bindParam(':postpics', $this->postpics);
+
+			//execute
+			$stmt->execute();
+
+			return $stmt;
+
+		}
+
+		public function change_pic(){
+			//query
+			$query = "UPDATE ".$this->table." SET postpics = :postpics WHERE post_id = :post_id";
+
+			//stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':post_id', $this->post_id);
+			$stmt->bindParam(':postpics', $this->postpics);
+
+			//execute
+			$stmt->execute();
+
+			return $stmt;
+
+		}
+
 
 	}
 

@@ -60,13 +60,13 @@
 			if ($profilepic != null){
 		?>
 				<div>
-					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" width="200" height="200">
 				</div>
 		<?php
 			} else {
 		?>		
 				<div>
-					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" width="200" height="200">
 				</div>
 		<?php
 			}
@@ -164,11 +164,12 @@
 				"title" => $rs['title'],
 				"content" => $rs['content'],
 				"posted_at" => $rs['posted_at'],
-				"user_id" => $rs['user_id']
+				"user_id" => $rs['user_id'],
+				"postpics" => $rs['postpics']
 			);
 
 	?>
-		<div class="media border p-5 mb-3" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+		<div class="media border p-4 mb-3" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			<div class="media-body">
 				
 				<a href="viewPost.php?user_id=<?php print_r($post_data['user_id']);?>&post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
@@ -192,6 +193,17 @@
 						}
 					?>	
 				</i></p>
+
+				<?php
+					if ($post_data['postpics'] != null){ 
+				?>	
+					<div>
+						<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php print_r($post_data['postpics'])?>" width="250">
+					</div>	
+				<?php
+					} 
+				?>
+
 
 				<small><i>
 				<?php

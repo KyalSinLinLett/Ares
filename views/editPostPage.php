@@ -14,6 +14,7 @@
 
 	$title = isset($_GET['title']) ? $_GET['title'] : die();
 	$content = $cont['content'];
+	$postpics = $cont['postpics'];
 	$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : die(); 
 
 	?>
@@ -55,7 +56,7 @@
 				<b>Edit post</b>
 				<a href="viewPost.php?user_id=<?php echo $_SESSION['id']?>&post_id=<?php echo $post_id; ?>"><b style="font-style: italic;">Cancel</b></a>
 				<hr>
-
+	
 				<!-- Title -->
 				<b>Title</b>
 				<input class="form-control mr-sm-2 mb-3 mt-1" type="text" name="title" maxlength="50" value="<?php echo $title; ?>" required>
@@ -63,8 +64,32 @@
 				<!-- Content -->
 				<div>
 					<b>Content</b>
-					<textarea class="md-textarea form-control mb-2 mt-1" name="content" maxlength="10000" rows="10" required><?php echo $content;?></textarea>
+					<textarea class="md-textarea form-control mb-3 mt-1" name="content" maxlength="10000" rows="5" required><?php echo $content;?></textarea>
 				</div>
+
+				<?php
+					if ($postpics != null){
+				?>
+						<b>Photo</b>
+						<div>
+							<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php echo $postpics;?>" width="270">
+						</div> 
+
+						<div class="mt-2">
+							<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/postApi/removePic.php?title=<?php echo $title; ?>&post_id=<?php echo $post_id;?>">Remove photo</a>
+							<a href="changePhoto.php?title=<?php echo $title; ?>&post_id=<?php echo $post_id;?>">Change photo</a>
+						</div>
+				<?php
+					} else {
+				?>
+					<div class="mt-2">
+						<a href="addPhoto.php?title=<?php echo $title; ?>&post_id=<?php echo $post_id;?>">Add photo</a>
+					</div>
+				<?php
+					}
+				?>
+				
+
 				<hr>
 				<!-- Edit button -->
 				<div>

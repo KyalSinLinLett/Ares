@@ -64,6 +64,17 @@ include_once "../controller/likeApi/getLikes.php";
 			<p><?php print_r($post_data['content']);?></p>
 		</article>
 
+
+		<?php
+			if ($post_data['postpics'] != null){ 
+		?>	
+			<div class="mb-4">
+				<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php print_r($post_data['postpics'])?>" width="280">
+			</div>	
+		<?php
+			}
+		?>
+
 		<small><i>
 		<?php
 	 		$datetime = $post_data['posted_at'];
@@ -101,6 +112,7 @@ include_once "../controller/likeApi/getLikes.php";
 		<?php
 			}
 		?>
+
 		<hr>
 		<div class="row pl-3">
 				<!-- likes -->
@@ -139,7 +151,7 @@ include_once "../controller/likeApi/getLikes.php";
 				?>
 					<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
 
-					<a onClick="javascript: return confirm('Confirm delete');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+					<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
 
 				<?php
 

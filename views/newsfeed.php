@@ -89,7 +89,8 @@ session_start();
 					"posted_at" => $rs['posted_at'],
 					"name" => $rs['name'],
 					"user_id" => $rs['id'],
-					"profilepic" => $rs['profilepic']
+					"profilepic" => $rs['profilepic'],
+					"postpics" => $rs['postpics']
 				);
 
 				include_once "../controller/likeApi/getLikesNF.php";
@@ -104,7 +105,7 @@ session_start();
 
 		?>
 
-			<div class="media border p-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+			<div class="media border p-2 pt-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			  
 			  <?php
 			  		if ($post_data['profilepic'] != null){
@@ -163,6 +164,17 @@ session_start();
 			    			}
 			    		?>	
 			    	</i></p>
+
+			    	<?php
+			    		if ($post_data['postpics'] != null){ 
+			    	?>	
+			    		<div>
+			    			<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php print_r($post_data['postpics'])?>" width="220">
+			    		</div>	
+			    	<?php
+			    		} 
+			    	?>
+
 			        <div>	
 			    	    <?php
 			    			if (strcmp($post_data['user_id'],$_SESSION['id'])==0){

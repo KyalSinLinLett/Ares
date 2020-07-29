@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
 <title>Your profile</title>
@@ -57,13 +57,13 @@
 			if ($profilepic != null){
 		?>
 				<div>
-					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+					<img src="../images/profilepic/<?php echo $profilepic?>" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" width="200" height="200">
 				</div>
 		<?php
 			} else {
 		?>		
 				<div>
-					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3); width: 200px; height: 200px;">
+					<img src="img/profilepic.gif" style="border-radius: 6rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" width="200" height="200">
 				</div>
 		<?php
 			}
@@ -107,9 +107,11 @@
 	<!-- Create post -->
 	<div class="card p-4 mt-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 		<p><i>Share something</i></p>
-		<form action="../controller/postApi/createPost.php" method="POST">
+		<form action="../controller/postApi/createPost.php" method="POST" enctype="multipart/form-data">
 			<input class="form-control mr-sm-2 mb-3" type="text" name="title" maxlength="50" placeholder="Title" required>
 			<textarea  class="md-textarea form-control mb-2" rows="5" name="content" maxlength="10000" placeholder="Share your thoughts" required></textarea>
+			<b>Add photo</b>	
+			<input class="mb-3" type="file" name="postpics" accept="image/*"><br>
 			<button class="btn btn-outline-info my-2 my-sm-0" name="submit" type="submit">Create</button>
 		</form>
 	</div>
@@ -130,11 +132,12 @@
 				"title" => $rs['title'],
 				"content" => $rs['content'],
 				"posted_at" => $rs['posted_at'],
-				"user_id" => $rs['user_id']
+				"user_id" => $rs['user_id'],
+				"postpics" => $rs['postpics']
 			);
 
 	?>
-		<div class="media border p-5 mb-3" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
+		<div class="media border p-4 mb-3" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			<div class="media-body">
 				
 				<a href="viewPost.php?user_id=<?php print_r($post_data['user_id']);?>&post_id=<?php print_r($post_data['post_id']);?>"><p><b><?php print_r($post_data['title']);?></b></p></a>
@@ -159,6 +162,16 @@
 					?>	
 				</i></p>
 
+				<?php
+					if ($post_data['postpics'] != null){ 
+				?>	
+					<div>
+						<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php print_r($post_data['postpics'])?>" width="250">
+					</div>	
+				<?php
+					} 
+				?>
+
 				<small><i>
 				<?php
 			 		$datetime = $post_data['posted_at'];
@@ -180,12 +193,14 @@
 					}
 				?>
 
-				<small><i>Likes: <?php echo $likecount;?></i></small>
+				<div>
+					<small><i>Likes: <?php echo $likecount;?></i></small>
+				</div>
 
 				<br>
 				<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
 
-				<a onClick="javascript: return confirm('Are you sure you want to delete?');" href="../controller/postApi/deletePost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
+				<a href="viewPost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
 			</div>
 		</div>
 		<hr>

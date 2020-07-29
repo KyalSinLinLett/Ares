@@ -49,7 +49,7 @@
 			//showing followers and followings
 			include_once "../controller/followerApi/getFollowerList.php";
 
-			if ($num_rows > 0){
+			if ($num_rows >= 0){
 				while ($rs = $res->fetch(PDO::FETCH_ASSOC)){
 
 			?>
