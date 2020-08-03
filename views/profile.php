@@ -17,6 +17,10 @@
 	    exit();
 	}
 
+	if ($_GET['user_id'] != $_SESSION['id']){
+		header('Location: newsfeed.php');		
+	}
+
 	include_once '../controller/userApi/getUser.php';
 ?>
 
@@ -51,6 +55,8 @@
 
 <!-- Show user info -->
 <div class="container" style="margin-top: 95px;">
+	<h1 class="mb-3"><i><b>Profile</b></i></h1>
+	<hr>
 	<!-- card -->
 	<div class="card pl-4 pr-4 pt-4 pb-1" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			<?php 
@@ -110,8 +116,10 @@
 		<form action="../controller/postApi/createPost.php" method="POST" enctype="multipart/form-data">
 			<input class="form-control mr-sm-2 mb-3" type="text" name="title" maxlength="50" placeholder="Title" required>
 			<textarea  class="md-textarea form-control mb-2" rows="5" name="content" maxlength="10000" placeholder="Share your thoughts" required></textarea>
-			<b>Add photo</b>	
-			<input class="mb-3" type="file" name="postpics" accept="image/*"><br>
+			<b>Add photo</b>
+			<div>
+				<input class="mb-3" type="file" name="postpics" accept="image/*"><br>				
+			</div>	
 			<button class="btn btn-outline-info my-2 my-sm-0" name="submit" type="submit">Create</button>
 		</form>
 	</div>
@@ -200,7 +208,6 @@
 				<br>
 				<a href="editPostPage.php?title=<?php print_r($post_data['title']);?>&post_id=<?php print_r($post_data['post_id']);?>"><img src="img/editprofile.png" class="mr-2 mt-2 rounded-circle" style="width:35px;"></a>
 
-				<a href="viewPost.php?post_id=<?php print_r($post_data['post_id']); ?>"><img src="img/delete.png" class="mr-2 mt-2" style="width:35px;"></a>
 			</div>
 		</div>
 		<hr>

@@ -39,8 +39,9 @@
         <!-- /navbar -->
 		<div class="container" style="margin-top: 95px;">
 			
-			<h3><i>Following</i></h3>
-			<br>
+			<h1 class="mb-3"><i><b>Following</b></i></h1>
+			<hr>
+
 			<?php  
 
 			//showing followers and followings
@@ -57,30 +58,39 @@
 					<?php
 
 						if (isset($_SESSION['id'])){
-							if (strcmp($_SESSION['id'], $rs['id']) == 0){
-
+											
+								//if user has set a profile pic
+								if ($rs['profilepic'] != null){
+									//if the user is the currently logged in user
+									if (strcmp($_SESSION['id'], $rs['id'])==0){
 						?>
-							<a href="profile.php?user_id=<?php echo $rs['id']?>"><img src="img/following.gif" alt="John Doe" class="ml-2 mr-3 rounded-circle" style="width:85px; height:70px;"></a>
+									<a href="profile.php?user_id=<?php echo $rs['id']?>"><img src="../images/profilepic/<?php echo $rs['profilepic'];?>" alt="John Doe" class="ml-2 mr-3 rounded-circle"  width="70" height="70"></a>
+								
+						<?php
+									} else {
+						?>		
+									<a href="viewProfilePage.php?user_id=<?php echo $rs['id']?>"><img src="../images/profilepic/<?php echo $rs['profilepic'];?>" alt="John Doe" class="m1-2 mr-3 rounded-circle"  width="70" height="70"></a>
+						<?php
+									}
+								} else {
+										if (strcmp($_SESSION['id'], $rs['id'])==0){
+							?>
+										<a href="profile.php?user_id=<?php echo $rs['id']?>"><img src="img/profilepic.gif" alt="John Doe" class="ml-2 mr-3 rounded-circle" width="70"></a>
+									
+							<?php
+										} else {
+							?>		
+										<a href="viewProfilePage.php?user_id=<?php echo $rs['id']?>"><img src="img/profilepic.gif" alt="John Doe" class="m1-2 mr-3 rounded-circle" width="70"></a>
+							<?php
+										}
+								}
+							} 
+						?>
 
-
-					<?php
-
-							} else {
-
-					?>
-
-							<a href="viewProfilePage.php?user_id=<?php echo $rs['id']?>"><img src="img/following.gif" alt="John Doe" class="ml-2 mr-3 rounded-circle" style="width: 85px; height: 70px;"></a>
-
-					<?php
-							}
-						}
-					?>
-
-					<b style="padding-top: 20px;"><?php echo $rs['name']; ?></b>
-
+						<b style="padding-top: 20px;"><?php echo $rs['name']?></b>
+						
 					</div>
 				</div>
-
 				<?php
 
 					}

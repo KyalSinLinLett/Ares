@@ -53,6 +53,8 @@
 
 <!-- display the information in HTML -->
 <div class="container" style="margin-top: 95px;">
+	<h1 class="mb-3"><i><b>Profile</b></i></h1>
+	<hr>
 	<!-- card -->
 	<div class="card p-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 
@@ -146,27 +148,29 @@
 
 	include_once "../controller/postApi/getPostForOtherUser.php";
 
-	//set the user id
-	$post->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	if ($_GET['user_id'] != $_SESSION['id']){
 
-	//set the result to $rs
-	$result = $post->get_all_posts();
+		//set the user id
+		$post->user_id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
-	$num_rows = $result->rowCount();
+		//set the result to $rs
+		$result = $post->get_all_posts();
 
-	if ($num_rows > 0){
+		$num_rows = $result->rowCount();
 
-		while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
-			extract($rs);
+		if ($num_rows > 0){
 
-			$post_data = array(
-				"post_id" => $rs['post_id'],
-				"title" => $rs['title'],
-				"content" => $rs['content'],
-				"posted_at" => $rs['posted_at'],
-				"user_id" => $rs['user_id'],
-				"postpics" => $rs['postpics']
-			);
+			while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
+				extract($rs);
+
+				$post_data = array(
+					"post_id" => $rs['post_id'],
+					"title" => $rs['title'],
+					"content" => $rs['content'],
+					"posted_at" => $rs['posted_at'],
+					"user_id" => $rs['user_id'],
+					"postpics" => $rs['postpics']
+				);
 
 	?>
 		<div class="media border p-4 mb-3" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
@@ -233,9 +237,13 @@
 
 	<?php
 
-		}
+			}
 
-	} 
+		} 
+
+	} else {
+		header('location: newsfeed.php');
+	}
 
 	ob_flush();
 

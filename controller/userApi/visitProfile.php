@@ -15,15 +15,20 @@
 	$user = new User($db);
 
 	//get user id
-	$user->id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
+	if ($_GET['user_id'] != $_SESSION['id']){
+		$user->id = isset($_GET['user_id']) ? $_GET['user_id'] : die();
 
-	//perform a get user query
-	$user = $user->get_user();	
+		//perform a get user query
+		$user = $user->get_user();	
 
-	$name = $user['name'];
-	$email = $user['email'];
-	$birthday = $user['birthday'];
-	$profession = $user['profession'];
-	$biography = $user['biography'];
-	$profilepic = $user['profilepic'];	
+		$name = $user['name'];
+		$email = $user['email'];
+		$birthday = $user['birthday'];
+		$profession = $user['profession'];
+		$biography = $user['biography'];
+		$profilepic = $user['profilepic'];
+	} else {
+		header("Location: ../../views/newsfeed.php");
+	}
+	
 ?>

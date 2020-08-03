@@ -59,6 +59,7 @@ include("../codesnippets/ifsessionISNOTset.php");
 		?>
 
 		<a href="changePP.php">Change profile pic</a>
+		<hr>
 		
 		<form action="../controller/userApi/updateUser.php" method="post" enctype="multipart/form-data"	>
 

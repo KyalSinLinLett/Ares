@@ -58,6 +58,8 @@ include_once "../controller/likeApi/getLikes.php";
 
 <!-- show post content -->
 <div class="container" style="margin-top: 95px;">
+	<h1 class="mb-3"><i><b>View Post</b></i></h1>
+	<hr>
 	<div class="card p-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 		<article>
 			<h2><?php print_r($post_data['title']);?></h2>
@@ -81,7 +83,7 @@ include_once "../controller/likeApi/getLikes.php";
 	 		$date = explode(" ", $datetime);
 	 		echo "Posted on ".$date[0];
 	 	?>
-	 	<p>Likes: <?php echo $likecount; ?></p>
+	 	<p><b>Likes:</b> <?php echo $likecount; ?></p>
 		</i></small>
 		
 

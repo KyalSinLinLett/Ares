@@ -40,6 +40,8 @@
 	<!-- /navbar -->
 
 	<div class="container">
+		<h1 class="mb-3"><i><b>About</b></i></h1>
+		<hr>
 		<article>
 			<p style="font-family: ubuntu;">> d3v-overfl0w is a <i>small</i> and simple social network for sharing thoughts and knowledge.</p>
 			<p style="font-family: ubuntu;">> It's mainly built with pure <i>PHP</i> without any frameworks and designed with Bootstrap 4.</p>	

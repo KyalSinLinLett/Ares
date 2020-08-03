@@ -1,61 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Public</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php
-	include("design/bootstrap.html");
-?>	
-
+	<title>Your circle</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<?php
+		ob_start();
+		session_start();
+		include("design/bootstrap.html");
+	?>	
 </head>
 <body>
 
-<?php  
+	<!-- nf is user logged in -->
+	<?php
+		
+		if(isset($_SESSION['id'])){
 
-ob_start();
-session_start();
+	?>
+	<!-- Navbar -->
+	<div>
+		<nav class="mb-4 navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+		  <!-- Brand -->
+		  <a class="navbar-brand" href="newsfeed.php"><img src="img/letterD.gif" alt="Logo" style="width:50px;"><i> d3v-overfl0w</i></a>
 
-?>
+		  <!-- Toggler/collapsibe Button -->
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
 
+		  <!-- Navbar links -->
+		  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" href="profile.php?user_id=<?php echo $_SESSION['id'];?>"><img src="img/profileDefault.gif" alt="profile" style="width:35px; height: 30px;"> <i>My profile</i></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="about.php"><img src="img/about.gif" alt="profile" style="width:35px; height: 30px;"><i> About</i></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'><img src="img/logout.gif" alt="profile" style="width:40px; height: 30px;">  <i>Log out</i></a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav> 
+	</div>
+	<!-- /navbar -->
 
-<!-- nf is user logged in -->
-<?php
-	
-	if(isset($_SESSION['id'])){
-
-?>
-<!-- Navbar -->
-<div>
-	<nav class="mb-4 navbar navbar-expand-md bg-dark navbar-dark fixed-top">
-	  <!-- Brand -->
-	  <a class="navbar-brand" href="newsfeed.php"><img src="img/letterD.gif" alt="Logo" style="width:50px;"><i> d3v-overfl0w</i></a>
-
-	  <!-- Toggler/collapsibe Button -->
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-
-	  <!-- Navbar links -->
-	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-	    <ul class="navbar-nav">
-	      <li class="nav-item">
-	        <a class="nav-link" href="profile.php?user_id=<?php echo $_SESSION['id'];?>"><img src="img/profileDefault.gif" alt="profile" style="width:35px; height: 30px;"> <i>My profile</i></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="about.php"><img src="img/about.gif" alt="profile" style="width:35px; height: 30px;"><i> About</i></a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" onclick="javascript: return confirm('Are you sure you want to log out?');" href='../controller/logout.php'><img src="img/logout.gif" alt="profile" style="width:40px; height: 30px;">  <i>Log out</i></a>
-	      </li>
-	    </ul>
-	  </div>
-	</nav> 
-</div>
-<!-- /navbar -->
-			
-	<!-- search -->
 	<div class="container" style="margin-top: 95px;">
-			
+		
 		<div>
 			<form action="searchResults.php" method="POST" class="form-inline">
 				<select name="search_by" class="browser-default custom-select">
@@ -73,40 +65,28 @@ session_start();
 			<p><i>Check out these posts.</i></p>
 		</div>
 
- 		<div>
- 			<ul class="nav nav-tabs nav-justified">
- 			  <li class="nav-item">
- 			    <a class="nav-link active" href="newsfeed.php">Public feed</a>
- 			  </li>
- 			  <li class="nav-item">
- 			    <a class="nav-link" href="seepostsbyfollowing.php">Your circle</a>
- 			  </li>
- 			</ul>
- 		</div>
- 		<h4 class="mt-3"><i>See what <b>the world</b> is saying</i></h4>
+		<div>
+			<ul class="nav nav-tabs nav-justified">
+			  <li class="nav-item">
+			    <a class="nav-link" href="newsfeed.php">Public feed</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link active" href="seepostsbyfollowing.php">Your circle</a>
+			  </li>
+			</ul>
+		</div>
+		<h4 class="mt-3"><i>See what people <b>you follow</b> are saying</i></h4>
 		<hr>
 
-	<?php
-		include_once "../controller/postApi/getAllPostsNF.php";
+	<?php  
+		include_once "../controller/followerApi/getPostsByFollowing.php";
 
-		$num_rows = $result->rowCount();
+		if ($num_rows >= 0){
+			while ($post_data = $res->fetch(PDO::FETCH_ASSOC)){
+				
+	?>
 
-		if ($num_rows > 0){
-
-			while ($rs = $result->fetch(PDO::FETCH_ASSOC)){
-				//extract($rs);
-
-				$post_data = array(
-					"post_id" => $rs['post_id'],
-					"title" => $rs['title'],
-					"content" => $rs['content'],
-					"posted_at" => $rs['posted_at'],
-					"name" => $rs['name'],
-					"user_id" => $rs['id'],
-					"profilepic" => $rs['profilepic'],
-					"postpics" => $rs['postpics']
-				);
-
+			<?php
 				include_once "../controller/likeApi/getLikesNF.php";
 
 				$like->post_id = $post_data['post_id'];
@@ -116,8 +96,10 @@ session_start();
 				} else {
 					echo "Cannot get post likes. Try again.";
 				}
-
-		?>
+				// print_r($post);
+				// echo "<br>" . $likecount;
+				// echo "<hr>";
+			?>
 
 			<div class="media border p-3 mb-4" style="border-radius: 1rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);">
 			  
@@ -213,26 +195,17 @@ session_start();
 			    	<small><b>Likes:</b> <?php echo $likecount?></small>
 			 	</div>
 			</div>
-
-		
+			
 		<?php
-
-			}
-
-		} 
-
+			} //while post loop
+		} //if num row
 		?>
+	</div>
 
 	<?php
- 
-} else {
-	header("location: ../index.php");
-	exit();
-} 
-ob_flush();
-?>
-
-</div>
+	} //if session started
+	ob_flush();
+	?>
 
 </body>
 </html>

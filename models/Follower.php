@@ -123,7 +123,7 @@
 
 			//query 
 			$query = "SELECT 
-							".$this->table.".followed_by, ".$USERTABLE.".name, ".$USERTABLE.".id
+							".$this->table.".followed_by, ".$USERTABLE.".name, ".$USERTABLE.".id, ".$USERTABLE.".profilepic
 					  FROM 
 					  		".$this->table."
 					  LEFT JOIN
@@ -173,7 +173,7 @@
 			$USERTABLE = "User";	
 			//query 
 			$query = "SELECT 
-							".$this->table.".user_id, ".$USERTABLE.".name, ".$USERTABLE.".id
+							".$this->table.".user_id, ".$USERTABLE.".name, ".$USERTABLE.".id, ".$USERTABLE.".profilepic
 					  FROM 
 					  		".$this->table."
 					  LEFT JOIN
@@ -189,6 +189,43 @@
 			//bind param
 			$stmt->bindParam(':user_id', $this->user_id);
 
+			$stmt->execute();
+
+			return $stmt;
+		}
+
+		//SELECT * FROM `Post` WHERE user_id IN (SELECT user_id FROM Follower WHERE Follower.followed_by='35') ORDER BY posted_at DESC LIMIT 20 
+
+		//function to get posts by people the logged in user follows
+		public function get_posts_by_following(){
+			$POSTTABLE = "Post";
+			$USERTABLE = "User";
+			//query
+			$query = "SELECT post_id, title, content, 					posted_at, user_id, postpics, 				name, profilepic 
+
+					  FROM ".$POSTTABLE." 
+
+					  INNER JOIN ".$USERTABLE." 
+
+					  ON Post.user_id = User.id
+
+					  WHERE user_id 
+
+					  IN 
+
+					  (SELECT user_id 
+					  		FROM ".$this->table." 
+					  		WHERE ".$this->table.".followed_by = :followed_by) 
+
+					  ORDER BY posted_at DESC LIMIT 20";
+
+			//prepare statement
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':followed_by', $this->followed_by);
+
+			//execute
 			$stmt->execute();
 
 			return $stmt;

@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 	header('Access-Control-Allow-Origin: *');
-	header('Access-Control-Allow-Method: GET');
+	header('Access-Control-Allow-Method: POST');
 	header('Access-Control-Allow-Headers: Access-Control-Allow-Origin, Access-Control-Allow-Header, Authorization, X-Requested-With');
 
 	//import db and follower class
@@ -15,11 +15,9 @@
 	//instantiate follower object
 	$follow = new Follower($db);
 
-	//assign values
-	$follow->user_id = $_GET['user_id'];
+	$follow->followed_by = $_SESSION['id'];
 
-	$res = $follow->get_following_list();
+	$res = $follow->get_posts_by_following();
 
 	$num_rows = $res->rowCount();
-
 ?>

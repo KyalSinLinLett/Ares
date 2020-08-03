@@ -25,10 +25,18 @@
 			// //bind param
 			// $stmt->bindParam(1, $this->s_query);
 
-			//execute
-			$stmt->execute();
+			try {
+				//execute
+				$stmt->execute();
+				return $stmt;	
+			} catch (PDOException $e) {
+				echo "
+				<div>
+					<p>No results found. <a style='color: #008CBA;' href='newsfeed.php'>Try again</a></p>
+				</div>";
+			}
 
-			return $stmt;
+
 		}
 
 		//function to search
@@ -42,10 +50,17 @@
 			// //bind param
 			// $stmt->bindParam(1, );
 
-			//execute
-			$stmt->execute();
+			try {
+				//execute
+				$stmt->execute();
+				return $stmt;	
+			} catch (PDOException $e) {
+				echo "
+				<div>
+					<p>No results found. <a style='color: #008CBA;' href='newsfeed.php'>Try again</a></p>
+				</div>";
+			}
 
-			return $stmt;
 		}
 
 
