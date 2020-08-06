@@ -12,6 +12,8 @@
 		public $post_id;
 		public $posted_by;
 
+		public $user_id;
+
 		//constructor
 		public function __construct($db){
 			$this->conn = $db;
@@ -126,6 +128,54 @@
 			//print error
 			printf("Error: %s\n", $stmt->error);
 			return false;
+		}
+
+		//SELECT Comment.comment, Comment.posted_at, Comment.post_id, Comment.posted_by, User.name FROM `Comment` INNER JOIN User ON Comment.posted_by = User.id WHERE Comment.post_id IN (SELECT Post.post_id FROM Post WHERE Post.user_id = 35) ORDER BY Comment.posted_at DESC LIMIT 50 
+
+		//function to get comment notif
+		public function get_comment_notif(){
+			//query 
+			$query = "SELECT 
+							".$this->table.".comment AS COMMENT, 
+							".$this->table.".posted_at AS TIME_COMMENTED, 
+							".$this->table.".post_id AS POST_ID, 
+							".$this->table.".posted_by AS COMMENTER_ID, 
+							User.name AS COMMENTER_NAME,
+							Post.title AS TITLE 
+
+					  FROM 
+					  		".$this->table." 
+					  INNER JOIN 
+					  		User 
+					  ON 
+					  		".$this->table.".posted_by = User.id
+					  LEFT JOIN
+					  		Post
+					  ON
+					  		".$this->table.".post_id = Post.post_id 
+					  WHERE 
+					  		".$this->table.".post_id 
+					  IN 
+					  		(SELECT 
+					  			Post.post_id 
+					  		 FROM 
+					  		 	Post 
+					  		 WHERE 
+					  		 	Post.user_id = :user_id) 
+					  ORDER BY 
+					  		".$this->table.".posted_at DESC 
+					  LIMIT 50";
+
+			//stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':user_id', $this->user_id);
+
+			$stmt->execute();
+
+			return $stmt;
+
 		}
 
 

@@ -230,6 +230,39 @@
 
 			return $stmt;
 		}
+
+		//function to get follower list
+		public function get_follow_notif(){
+			
+			$USERTABLE = "User";
+
+			//query 
+			$query = "SELECT 
+							".$this->table.".followed_by AS FOLLOWER,
+							".$this->table.".time_followed AS TIME_FOLLOWED, 
+							".$USERTABLE.".name AS NAME,
+							".$USERTABLE.".profilepic
+					  FROM 
+					  		".$this->table."
+					  LEFT JOIN
+					  		".$USERTABLE."
+					  ON 
+					  		".$this->table.".followed_by = ".$USERTABLE.".id
+					  WHERE 
+					  		user_id = :user_id
+					  ORDER BY ".$this->table.".time_followed DESC
+					  LIMIT 50";
+
+			//prepare stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bind param
+			$stmt->bindParam(':user_id', $this->user_id);
+
+			$stmt->execute();
+
+			return $stmt;
+		}
 	}
 
 ?>

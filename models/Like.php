@@ -101,7 +101,50 @@
 			return false;
 		}
 
+		// function to add like notification
+		public function get_like_notif(){
 
+			$POSTTABLE = "Post";
+			$USERTABLE = "User";
+			
+			$query = "SELECT 
+						".$this->table.".time_liked as TIME,
+						".$USERTABLE.".name as LIKER_NAME,
+						".$this->table.".user_id AS LIKER_ID, 
+						".$this->table.".post_id AS POST_ID, 
+						".$POSTTABLE.".user_id AS POSTOWNER_ID,
+						".$POSTTABLE.".title AS TITLE 
+					  FROM 
+					  	".$this->table." 
+					  INNER JOIN 
+					  	".$POSTTABLE." 
+					  ON 
+					  	".$this->table.".post_id = ".$POSTTABLE.".post_id
+					  LEFT JOIN
+					  	".$USERTABLE."
+					  ON
+					  	".$USERTABLE.".id = ".$this->table.".user_id
+					  WHERE 
+					  	".$POSTTABLE.".user_id = :user_id
+					  ORDER BY 
+					  	Likes.time_liked DESC
+					  LIMIT 50";
+
+			//prepare stmt
+			$stmt = $this->conn->prepare($query);
+
+			//bindparams
+			$stmt->bindParam(':user_id', $this->user_id);
+
+			try {
+				$stmt->execute();
+				return $stmt;
+			} catch (PDOException $e) {
+				echo "<p>Connection error: cannot retrieve data.</p>";
+			}
+			
+
+		}
 	}
 
 

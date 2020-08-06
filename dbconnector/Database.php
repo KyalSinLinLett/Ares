@@ -4,7 +4,7 @@ class Database{
 	//DB Params
 	private $host = "localhost";
 	//private $db_name = "id14323272_ares";
-	private $db_name = "Ares2";
+	private $db_name = "DEV";
 	//private $username = "id14323272_root";
 	private $username = "root";
 	//private $password = "1wzCAcBLT|2n*mp/";

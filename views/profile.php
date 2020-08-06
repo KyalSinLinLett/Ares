@@ -42,6 +42,9 @@
 	        <a class="nav-link" href="profile.php?user_id=<?php echo $_SESSION['id'];?>"><img src="img/profileDefault.gif" alt="profile" style="width:35px; height: 30px;"> <i>My profile</i></a>
 	      </li>
 	      <li class="nav-item">
+	        <a class="nav-link" href="notifications.php"><img src="img/notibell.gif" alt="noti" style="margin-right: 2px; border-radius: 4rem; width: 34px; height: 32px;"><i> Notifications</i></a>
+	      </li>
+	      <li class="nav-item">
 	        <a class="nav-link" href="about.php"><img src="img/about.gif" alt="profile" style="width:35px; height: 30px;"><i> About</i></a>
 	      </li>
 	      <li class="nav-item">
@@ -126,6 +129,10 @@
 	<hr>
 
 	<!-- Show posts -->
+	<h2><i><b>Your posts</b></i></h2>
+	<hr>
+
+	<!-- Show posts -->
 	<?php
 
 	include_once "../controller/postApi/getAllPosts.php";
@@ -173,7 +180,7 @@
 				<?php
 					if ($post_data['postpics'] != null){ 
 				?>	
-					<div>
+					<div class="mb-3">
 						<img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);" src="../images/postpics/<?php print_r($post_data['postpics'])?>" width="250">
 					</div>	
 				<?php
